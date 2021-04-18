@@ -543,6 +543,15 @@ error_reporting(E_ALL);
      </nav>
 
       <div class="main-box">
+
+
+
+        <div class="welcome">
+          <img src="logo_galaxkey" alt="">
+          <h1>Welcome to the Partner Portal.</h1>
+        </div>
+
+        
            <div id="box">
              <form  method="post">
                <div class= 'form-heading'>Login</div>
@@ -554,10 +563,7 @@ error_reporting(E_ALL);
               </div>-->
              </form>
            </div>
-        <div class="welcome">
-          <img src="logo_galaxkey" alt="">
-          <h1>Welcome to the Partner Portal.</h1>
-        </div>
+
 
       </div>
 
