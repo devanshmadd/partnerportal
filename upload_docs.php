@@ -35,7 +35,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               echo $tmp_name . ",  " . $img_upload_path . ",  " . $new_img_name;
 
         			 //Insert into Database
-        			$query = "INSERT INTO images (partner_organization, image_url, time_stamp) VALUES ('$partner_organization', '$img_upload_path', NOW())";
+        			$query = "INSERT INTO kyc_docs (partner_organization, image_url, time_stamp) VALUES ('$partner_organization', '$img_upload_path', NOW())";
         		  mysqli_query($con, $query);
         		}else {
         			echo "You can't upload files of this type";
@@ -484,7 +484,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           <?php
 
               $partner_organization_checker = $_SESSION['partner_organization'];
-              $record_query = "SELECT image_url FROM images WHERE partner_organization = '$partner_organization_checker' ";
+              $record_query = "SELECT image_url FROM kyc_docs WHERE partner_organization = '$partner_organization_checker' ";
               $result = mysqli_query($con, $record_query);
               if(!$result || mysqli_num_rows($result) == 0)
               {
