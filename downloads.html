@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Downloads</title>
+  </head>
+  <body>
+
+    <style>
+
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300&display=swap');
+    body{
+        font-family: 'Poppins', sans-serif;
+        }
+
+      *{
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      .nav-bar{
+        background: white;
+        display: flex;
+        width: 100%;
+        margin: auto;
+        height: 10vh;
+        justify-content: space-around;
+        align-items: center;
+
+      }
+
+      .nav-logo img{
+        width: 25%;
+        height: auto;
+        margin-left: 10%;
+        display: flex;
+
+
+      }
+
+      nav{
+        display: flex;
+        width: 100%;
+        justify-content: space-around;
+      }
+
+      .list-items{
+        list-style: none;
+        width: 100%;
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+      }
+
+      .list-items li a{
+        text-decoration: none;
+        color: black;
+      }
+
+
+      .list-items li a:hover{
+        background-color: black;
+        padding: 5px 7px;
+        border-radius: 5px;
+        color: white;
+      }
+
+      .heading{
+        background-color: #DBDBDB;
+        background: linear-gradient(#e52d27, #b31217);
+        color: white;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        height: 15vh;
+        -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
+      }
+
+      .container{
+        display: flex;
+        flex-direction: column;
+        width: 100%;
+        margin: auto;
+        height: 90vh;
+        /*background: red;*/
+        justify-content: space-around;
+       /* background-color: #555;*/
+       background: linear-gradient(180deg, #DBDBDB, #EAEAEA);
+       background-image: url("qbkls.png");
+       background-repeat: repeat;
+      }
+
+      .downloadables{
+        width: 50%;
+        height: 100%;
+        display: flex;
+        flex-direction: column;
+        margin: auto;
+        justify-content: space-around;
+      }
+
+      .data_sheet_1 h2 a, .case_studies h2 a, .download_galaxkey h2 a{
+        color: black;
+        text-decoration: none;
+        background: white;
+        padding: 5px 7px;
+        border-radius: 5px;
+      }
+
+      .data_sheet_1 h2 a:hover, .case_studies h2 a:hover, .download_galaxkey h2 a:hover{
+        background-color: black;
+        color: white;
+        padding: 5px 7px;
+        border-radius: 5px;
+        text-decoration: none;
+      }
+
+      .data_sheet_1, .case_studies, .download_galaxkey, .buffer {
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
+      }
+
+      .data_sheet_1{
+        background-color: #DBDBDB;
+        width: 100%;
+        height: 20vh;
+      }
+
+      .case_studies{
+        background-color: #DBDBDB;
+        width: 100%;
+        height: 20vh;
+      }
+
+      .download_galaxkey{
+        background-color: #DBDBDB;
+        width: 100%;
+        height: 20vh;
+      }
+
+      .buffer{
+        background-color: #DBDBDB;
+        width: 100%;
+      }
+
+    </style>
+
+
+    <div class="nav-bar">
+        <nav>
+          <div class="nav-logo">
+            <img src="logo_galaxkey" alt="">
+          </div>
+              <ul class = "list-items">
+              <li><a href="register_deal.php">Register a deal</a></li>
+              <li><a href="change_status.php">Change Deal Status</a></li>
+              <li><a href="quiz_index.php">Take the Quiz!</a></li>
+              <li><a href="downloads.html">Downloads</a></li>
+              <li><a href="demo.html">Demo</a></li>
+              <li><a href="https://www.galaxkey.com/aboutgalaxkey/" target="_blank">About</a></li>
+              <li><a href="https://www.galaxkey.com/contact/contact/" target="_blank">Contact</a></li>
+              <li><a href="logout.php">Logout</a></li>
+            </ul>
+        </nav>
+    </div>
+
+
+    <div class="container">
+
+      <div class="heading">
+        <h1>Downloads</h1>
+      </div>
+
+      <div class="downloadables">
+
+        <div class="download_galaxkey">
+          <h2><a href="https://manager.galaxkey.com/downloads" target="_blank">Download Galaxkey Client</a></h2>
+        </div>
+
+        <div class="data_sheet_1">
+          <h2><a href="https://www.galaxkey.com/datasheets/" target="_blank">Datasheets</a></h2>
+        </div>
+
+        <div class="case_studies">
+          <h2><a href="https://www.galaxkey.com/case-studies/" target="_blank">Case Studies</a></h2>
+        </div>
+
+        <div class="buffer">
+
+        </div>
+
+    </div>
+
+    </div>
+
+  </body>
+</html>
