@@ -4,7 +4,7 @@ $dbuser = 'root';
 $dbpass = 'password';
 $dbname = 'test_db';
 
-$con = mysqli_connect('localhost', 'root', '', 'test_db');
+$con = mysqli_connect('localhost', 'root', 'password', 'test_db');
 if(!$con)
 {
   die("Failed to connect! Please try later");
