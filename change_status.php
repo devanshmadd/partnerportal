@@ -162,6 +162,9 @@ return true;
      #box{
        border-radius: 10px;
        max-height: 95%;
+       display: flex;
+       flex-direction: column;
+       justify-content: center;
        margin: auto;
        width: 35%;
        padding: 20px 35px 25px 35px;
@@ -170,6 +173,11 @@ return true;
        background: #fff;
        -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
        overflow: auto;
+     }
+
+     #box h1{
+       font-size: 2rem;
+       padding: 15px;
      }
 
      .deal_status{
@@ -701,11 +709,10 @@ justify-content: center;
 <div id="box">
           <!-- <div id="change_status"> -->
             <h1>Change deal status</h1>
-            <form id = "form" style= "backgroundcolor: pink; display: flex; flex-direction: column; justify-content: center;" method="post">
+            <form id = "form" method="post">
               <input type="text" name="deal_id" placeholder="Enter Deal ID"><br>
               <div class="change" >
                 <h3>Select deal status:</h3>
-                                   <br>
                 <div class="options">
                   <select name="deal_status" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
                                    <option value="Select Deal Status">Select Deal Status</option>
