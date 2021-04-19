@@ -794,7 +794,6 @@ justify-content: center;
                                               while($row = mysqli_fetch_assoc($result)) {
                                                 echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
                                             }
-                                            echo "</tbody> </table>";
                                           }
                                       }
                                       elseif ($partner_priv == '2') {
@@ -809,9 +808,10 @@ justify-content: center;
                                               while($row = mysqli_fetch_assoc($result)) {
                                                 echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
                                             }
-                                            echo "</tbody> </table>";
+
                                           }
                                       }
+                                      echo "</tbody> </table>";
 
 
 

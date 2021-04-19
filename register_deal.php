@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
       //saving to database
       $deal_id = random_num(6);
-      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status') ";
+      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, time_stamp) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status') ";
       mysqli_query($con, $query);
       //echo "test";
       //header("Location: login.php");
@@ -118,7 +118,7 @@ error_reporting(E_ALL);
          display: flex;
          flex-direction: column;
          align-items: center;
-         width: 50%;
+         max-width: 50%;
          background: #fff;
          padding: 10px 17px;
          -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
@@ -130,8 +130,6 @@ error_reporting(E_ALL);
        #records h2{
          margin: 15px;
          padding: 15px;
-
-
        }
 
        .keywords{
@@ -170,7 +168,7 @@ error_reporting(E_ALL);
 
        .containerr{
          display: flex;
-         width: 100%;
+         max-width: 100%;
          margin: auto;
          min-height: 90vh;
          justify-content: space-around;
@@ -398,6 +396,8 @@ error_reporting(E_ALL);
 
 
 
+
+
     @media (max-width: 960px){
 
         .containerr{
@@ -544,6 +544,8 @@ error_reporting(E_ALL);
 
 
 
+
+
 <div class="containerr">
 
 
@@ -601,14 +603,13 @@ error_reporting(E_ALL);
                 $result = mysqli_query($con, $record_query);
                 if(!$result || mysqli_num_rows($result) == 0)
                 {
-                  echo "No records found!";
+                  echo "<div>No records found!</div>";
                 }
                 else {
 
                   while($row = mysqli_fetch_assoc($result)) {
                     echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
                 }
-                echo "</tbody> </table>";
               }
           }
           elseif ($partner_priv == '2') {
@@ -616,16 +617,18 @@ error_reporting(E_ALL);
                 $result = mysqli_query($con, $record_query);
                 if(!$result || mysqli_num_rows($result) == 0)
                 {
-                  echo "No records found!";
+                  echo "<div>No records found!</div>";
                 }
                 else {
 
                   while($row = mysqli_fetch_assoc($result)) {
                     echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
                 }
-                echo "</tbody> </table>";
+
               }
+
           }
+          echo "</tbody> </table>";
 
 
 
@@ -634,7 +637,8 @@ error_reporting(E_ALL);
         ?>
      </div>
 
-     </div>
+  </div>
+
 
      <div class="footer-dark">
      <footer>
@@ -666,6 +670,10 @@ error_reporting(E_ALL);
          </div>
      </footer>
  </div>
+
+
+
+
  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
  <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
 
