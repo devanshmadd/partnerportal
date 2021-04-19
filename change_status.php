@@ -20,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
     $partner_email = $_SESSION['partner_email'];
-    $partner_name = $_SESSION['partner_name'];
+    // $partner_name = $_SESSION['partner_name'];
     $partner_organization = $_SESSION['partner_organization'];
     $mail = new PHPMailer(true);
     $mail ->isSMTP();
