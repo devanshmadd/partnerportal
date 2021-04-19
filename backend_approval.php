@@ -4,6 +4,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
+include('smtp/PHPMailerAutoload.php');
 
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
@@ -14,8 +15,30 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $partner_email = $_POST['partner_email'];
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
+    $days_active = $_POST['days_active'];
+    // $deal_date = $_POST['deal_date'];
     $query = "SELECT * FROM deals WHERE deal_id = '$deal_id'";
     $result = mysqli_query($con, $query);
+
+    $mail = new PHPMailer(true);
+    $mail ->isSMTP();
+    $mail ->Host="smtp.outlook.com";
+    $mail ->Port=587;
+    $mail ->SMTPSecure="tls";
+    $mail ->SMTPAuth = true;
+    $mail ->Username = "technical.executive.mea@galaxkey.com";
+    $mail ->Password = "Apple_dummy_123";
+    $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+    $mail ->addAddress("devansh.madd99@gmail.com");
+    $mail ->addAddress("hassankhan825@gmail.com");
+    $mail ->IsHTML(true);
+    $mail ->IsHTML(true);
+    $mail -> SMTPOptions = array('ssl'=>array(
+      'verify_peer'=>false,
+      'verify_peer_name'=>false,
+      'allow_self_signed'=>false
+    ));
+
     if($result && mysqli_num_rows($result)>0)
     {
       $row = mysqli_fetch_assoc($result);
@@ -23,20 +46,36 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           echo "Deal has the same status. Please change according to request!";
       }
       else {
-        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init))
+        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($days_active))
         {
           //saving to database
           //$deal_id = random_num(6);
 
             if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-              $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+              $update_query = "UPDATE deals SET status = '$deal_status', days_active = '$days_active', deal_date = CURDATE() WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
               echo "Hogaya bey";
+              $mail ->Subject="Deal Approved";
+              $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
+              $mail ->Body=$html;
+              if($mail->send()){
+                echo "Mail Sent";
+              }else{
+                echo "error occured";
+              }
             }
             elseif ($deal_status_init == "INACTIVE") {
               $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
               echo "Hogaya bey";
+              $mail ->Subject="Deal Inactivated";
+              $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status :</td><td>$deal_status_init</td></tr></table>";
+              $mail ->Body=$html;
+              if($mail->send()){
+                echo "Mail Sent";
+              }else{
+                echo "error occured";
+              }
             }
 
         }
@@ -276,6 +315,8 @@ error_reporting(E_ALL);
                <input id="text" type="text" name="deal_id" value="" placeholder="Enter Deal ID"><br><br>
                <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
                <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
+               <!-- <input id="text" type="text" name="deal_date" value="" placeholder="deal date"><br><br> -->
+               <input id="text" type="text" name="days_active" value="" placeholder="days active"><br><br>
                <h3>Select deal status:</h3>
                <br>
                <div class="options">

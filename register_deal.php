@@ -17,12 +17,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $client_email = $_POST['client_email'];
     $client_phone = $_POST['client_phone'];
     $deal_status = $_POST['deal_status'];
+    // $deal_date = $_POST['deal_date'];
+    // $deal_days = $_POST['days_active'];
+
 
     if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($partner_phone) && !empty($partner_organization) && !empty($client_name) && !empty($client_email) && !empty($client_phone))
     {
       //saving to database
       $deal_id = random_num(6);
-      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status') ";
+      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status,deal_date,days_active) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status','0000-00-00',0) ";
       mysqli_query($con, $query);
       //echo "test";
       //header("Location: login.php");
