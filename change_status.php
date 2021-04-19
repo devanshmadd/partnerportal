@@ -3,6 +3,8 @@ session_start();
 
 include("connection.php");
 include("functions.php");
+include('smtp/PHPMailerAutoload.php');
+
 //include("login.php");
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
@@ -18,7 +20,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
     $partner_email = $_SESSION['partner_email'];
-
+    $partner_name = $_SESSION['partner_name'];
+    $partner_organization = $_SESSION['partner_organization'];
+    $mail = new PHPMailer(true);
+    $mail ->isSMTP();
+    $mail ->Host="smtp.outlook.com";
+    $mail ->Port=587;
+    $mail ->SMTPSecure="tls";
+    $mail ->SMTPAuth = true;
+    $mail ->Username = "technical.executive.mea@galaxkey.com";
+    $mail ->Password = "Apple_dummy_123";
+    $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+    $mail ->addAddress("devansh.madd99@gmail.com");
+    $mail ->addAddress("hassankhan825@gmail.com");
+    $mail ->IsHTML(true);
+    $mail ->IsHTML(true);
+    $mail -> SMTPOptions = array('ssl'=>array(
+      'verify_peer'=>false,
+      'verify_peer_name'=>false,
+      'allow_self_signed'=>false
+    ));
 
 
 
@@ -43,10 +64,27 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
                  $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
+                 $mail ->Subject="Deal Status Changed";
+                 $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>Request for Approval</td></tr></table>";
+                 $mail ->Body=$html;
+                 if($mail->send()){
+                   echo "Mail Sent";
+                 }else{
+                   echo "error occured";
+                 }
+
                 }
                 else{
                   $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
+                  $mail ->Subject="Deal Status Changed";
+                  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
+                  $mail ->Body=$html;
+                  if($mail->send()){
+                    echo "Mail Sent";
+                  }else{
+                    echo "error occured";
+                  }
                 //  echo $deal_status_checker;
 
               }
@@ -57,7 +95,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               elseif ($deal_status_init == "INACTIVE") {
                 $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
+
                 echo "Deal has been updated";
+                $mail ->Subject="Deal Status Changed";
+                $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status_init</td></tr></table>";
+                $mail ->Body=$html;
+                if($mail->send()){
+                  echo "Mail Sent";
+                }else{
+                  echo "error occured";
+                }
                 //echo mysqli_fetch_assoc($result);
                 // code...
               }
@@ -79,10 +126,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
                  $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
+                 $mail ->Subject="Deal Status Changed";
+                 $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>Request for Approval</td></tr></table>";
+                 $mail ->Body=$html;
+                 if($mail->send()){
+                   echo "Mail Sent";
+                 }else{
+                   echo "error occured";
+                 }
                 }
                 else{
                   $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
+                  $mail ->Subject="Deal Status Changed";
+                  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
+                  $mail ->Body=$html;
+                  if($mail->send()){
+                    echo "Mail Sent";
+                  }else{
+                    echo "error occured";
+                  }
                 //  echo $deal_status_checker;
 
               }
@@ -96,6 +159,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
                 echo "Deal has been updated";
+                $mail ->Subject="Deal Status Changed";
+                $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status_init</td></tr></table>";
+                $mail ->Body=$html;
+                if($mail->send()){
+                  echo "Mail Sent";
+                }else{
+                  echo "error occured";
+                }
                 //echo mysqli_fetch_assoc($result);
                 // code...
               }

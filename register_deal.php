@@ -39,11 +39,12 @@ include('smtp/PHPMailerAutoload.php');
       $mail ->Password = "Apple_dummy_123";
       $mail ->SetFrom("technical.executive.mea@galaxkey.com");
       $mail ->addAddress("devansh.madd99@gmail.com");
+      $mail ->addAddress("business.executive.mea@galaxkey.com");
       $mail ->addAddress("hassankhan825@gmail.com");
       $mail ->IsHTML(true);
       $mail ->IsHTML(true);
-      $mail ->Subject="New deal Registered";
-      $html="<table><tr><td>Partner Name</td><td>$partner_name</td></tr></table>";
+      $mail ->Subject="New Deal Registered";
+      $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
       $mail ->Body=$html;
       $mail -> SMTPOptions = array('ssl'=>array(
         'verify_peer'=>false,
@@ -203,10 +204,10 @@ error_reporting(E_ALL);
          margin: auto;
          min-height: 90vh;
          justify-content: space-around;
-        background: linear-gradient(180deg, #DBDBDB, #EAEAEA);
-        background-image: url("qbkls.png");
-        background-repeat: repeat;
-        overflow: hidden;
+         background: linear-gradient(180deg, #DBDBDB, #EAEAEA);
+         background-image: url("qbkls.png");
+         background-repeat: repeat;
+         overflow: hidden;
        }
 
        .footer-dark {

@@ -33,6 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $_SESSION['partner_email'] = $user_data['partner_email'];
             $_SESSION['partner_organization'] = $user_data['partner_organization'];
             $_SESSION['partner_priv'] = $user_data['partner_priv'];
+            $_SESSION['partner_name'] = $user_data['partner_name'];
             echo "success";
             //$_SESSION['partner_name'] = $user_data[]
             header("Location: register_deal.php");
@@ -551,7 +552,7 @@ error_reporting(E_ALL);
           <h1>Welcome to the Partner Portal.</h1>
         </div>
 
-        
+
            <div id="box">
              <form  method="post">
                <div class= 'form-heading'>Login</div>
