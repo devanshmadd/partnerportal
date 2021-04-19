@@ -23,13 +23,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           echo "Deal has the same status. Please change according to request!";
       }
       else {
-        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($deal_status))
+        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init))
         {
           //saving to database
           //$deal_id = random_num(6);
-          $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
-          mysqli_query($con, $update_query);
-          echo "Hogaya bey";
+
+            if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
+              $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+              mysqli_query($con, $update_query);
+              echo "Hogaya bey";
+            }
+            elseif ($deal_status_init == "INACTIVE") {
+              $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
+              mysqli_query($con, $update_query);
+              echo "Hogaya bey";
+            }
+
         }
         else {
           echo 'Please enter all the information!';
