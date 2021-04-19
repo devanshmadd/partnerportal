@@ -21,7 +21,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     {
       //saving to database
       $deal_id = random_num(6);
-      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, time_stamp) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status') ";
+      $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status') ";
       mysqli_query($con, $query);
       //echo "test";
       //header("Location: login.php");
