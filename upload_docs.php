@@ -484,7 +484,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           <?php
 
               $partner_organization_checker = $_SESSION['partner_organization'];
-              $record_query = "SELECT image_url FROM kyc_docsh
+              $record_query = "SELECT image_url FROM kyc_docs
                WHERE partner_organization = '$partner_organization_checker' ";
               $result = mysqli_query($con, $record_query);
               if(!$result || mysqli_num_rows($result) == 0)
