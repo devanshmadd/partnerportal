@@ -566,8 +566,7 @@ error_reporting(E_ALL);
          <input id="text" type="text" name="client_phone" placeholder="Client Phone"><br><br>
          <label for="deal_stauts" style="color: black;">Deal Status</label>
          <select class= 'deal_status' name="deal_status">
-           <option value="ACTIVE">ACTIVE</option>
-           <option value="INACTIVE">INACTIVE</option>
+           <option value="Requested">Requested</option>
          </select> <br><br>
          <input id="button" type="submit" name="" value="Submit"><br><br>
          <a href="logout.php">Logout</a><br>

@@ -25,17 +25,32 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     if(!empty($deal_id) && !empty($deal_status_init))
     {
       //saving to database
+      $deal_status_query = "SELECT * from deals WHERE deal_id = '$deal_id'";
+      $deal_status_checker = mysqli_query($con, $deal_status_query);
+
+      $row = mysqli_fetch_assoc($deal_status_checker);
+      echo $row["status"];
+
 
         $partner_organization_checker = $_SESSION['partner_organization'];
         $partner_priv = $_SESSION['partner_priv'];
         if ($partner_priv == '1') {
-            $query = "SELECT * FROM deals WHERE deal_id = '$deal_id' and partner_organization = '$partner_organization_checker';";
+            $query = "SELECT * FROM deals WHERE deal_id = '$deal_id' and partner_organization = '$partner_organization_checker'";
             $result = mysqli_query($con, $query);
             if ($result && mysqli_num_rows($result)>0) {
 
               if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-                $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
-                mysqli_query($con, $update_query);
+                if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
+                 $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
+                 mysqli_query($con, $update_query);
+                }
+                else{
+                  $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+                  mysqli_query($con, $update_query);
+                //  echo $deal_status_checker;
+
+              }
+
                 echo "Deal has been updated";
                 //echo mysqli_fetch_assoc($result)
               }
@@ -49,7 +64,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
             }
             else {
-              echo "Wrong deal ID!";
+              echo "Deal not approved or wrong deal ID!";
               //echo mysqli_fetch_assoc($result);
             }
             //echo "test";
@@ -61,11 +76,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $result = mysqli_query($con, $query);
             if ($result && mysqli_num_rows($result)>0) {
               if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-                $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
-                mysqli_query($con, $update_query);
+                if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
+                 $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
+                 mysqli_query($con, $update_query);
+                }
+                else{
+                  $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+                  mysqli_query($con, $update_query);
+                //  echo $deal_status_checker;
+
+              }
+
                 echo "Deal has been updated";
                 //echo mysqli_fetch_assoc($result)
               }
+
+
               elseif ($deal_status_init == "INACTIVE") {
                 $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
@@ -108,6 +134,7 @@ switch (listindex)
 {
 case "ACTIVE" :
 document.getElementById("subcategory").style.display= "flex";
+document.getElementById("")
 document.getElementById("subcategory").options[0]=new Option("Please select the detailed status","");
 document.getElementById("subcategory").options[1]=new Option("Lead Generated","Lead Generated");
 document.getElementById("subcategory").options[2]=new Option("Product Demonstration Completed","Product Demonstration Completed");
@@ -783,7 +810,7 @@ justify-content: center;
                                       $partner_email_checker = $_SESSION['partner_email'];
                                       $partner_priv = $_SESSION['partner_priv'];
                                       if ($partner_priv == '1') {
-                                            $record_query = "SELECT * FROM deals WHERE partner_organization = '$partner_organization_checker' ";
+                                            $record_query = "SELECT * FROM deals WHERE partner_organization = '$partner_organization_checker'";
                                             $result = mysqli_query($con, $record_query);
                                             if(!$result || mysqli_num_rows($result) == 0)
                                             {
@@ -797,7 +824,7 @@ justify-content: center;
                                           }
                                       }
                                       elseif ($partner_priv == '2') {
-                                            $record_query = "SELECT * FROM deals WHERE partner_email = '$partner_email_checker' ";
+                                            $record_query = "SELECT * FROM deals WHERE partner_email = '$partner_email_checker'";
                                             $result = mysqli_query($con, $record_query);
                                             if(!$result || mysqli_num_rows($result) == 0)
                                             {
