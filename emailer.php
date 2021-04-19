@@ -3,7 +3,7 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-
+include('smtp/PHPMailerAutoload.php');
 //include("login.php");
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
@@ -18,6 +18,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $client_phone = $_POST['client_phone'];
     $deal_status = $_POST['deal_status'];
 
+
+
+
+
+
     if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($partner_phone) && !empty($partner_organization) && !empty($client_name) && !empty($client_email) && !empty($client_phone))
     {
       //saving to database
@@ -27,28 +32,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       //echo "test";
       //header("Location: login.php");
       //die;
-
-include('smtp/PHPMailerAutoload.php');
       $mail = new PHPMailer(true);
       $mail ->isSMTP();
-      $mail ->Host="smtp.outlook.com";
-      $mail ->Port=587;
+      $mail ->Host="smtp.gmail.com";
+      $mail ->Post=587;
       $mail ->SMTPSecure="tls";
       $mail ->SMTPAuth = true;
-      $mail ->Username = "technical.executive.mea@galaxkey.com";
-      $mail ->Password = "Apple_dummy_123";
-      $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-      $mail ->addAddress("devansh.madd99@gmail.com");
-      $mail ->addAddress("hassankhan825@gmail.com");
-      $mail ->IsHTML(true);
+      $mail ->Username = "galaxkeyd@gmail.com";
+      $mail ->Password = "apple_dummy_123"
+      $mail ->SetFrom("galaxkeyd@gmail.com");
+      $mail ->addAddress("galaxkeyd@gmail.com");
       $mail ->IsHTML(true);
       $mail ->Subject="New deal Registered";
       $html="<table><tr><td>Partner Name</td><td>$partner_name</td></tr></table>";
       $mail ->Body=$html;
       $mail -> SMTPOptions = array('ssl'=>array(
-        'verify_peer'=>false,
-        'verify_peer_name'=>false,
-        'allow_self_signed'=>false
+        'verify_peer'=false,
+        'verify_peer_name'=false,
+        'allow_self_signed'=false
       ));
 
       if($mail->send()){
