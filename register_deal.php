@@ -584,12 +584,12 @@ error_reporting(E_ALL);
        <form method="post">
          <div class='register'>Register a deal!</div>
          <input id="text" type="text" name="partner_organization" value="<?php
-         echo $_SESSION['partner_organization']; ?>" placeholder="Organization"><br><br>
+         echo $_SESSION['partner_organization']; ?>" placeholder="Organization" readonly><br><br>
          <input id="text" type="text" name="partner_name" placeholder="User Name"><br><br>
          <input id="text" type="text" name="partner_email" placeholder="Partner Email"
-         value="<?php
+         value="  <?php
            echo $_SESSION['partner_email'];
-         ?>">
+         ?> "readonly>
          <br><br>
          <input id="text" type="text" name="partner_phone" placeholder="Partner Phone"><br><br>
          <input id="text" type="text" name="client_name" placeholder="Client Name"><br><br>
