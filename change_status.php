@@ -60,10 +60,20 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $query = "SELECT * FROM deals WHERE deal_id = $deal_id and partner_email = '$partner_email';";
             $result = mysqli_query($con, $query);
             if ($result && mysqli_num_rows($result)>0) {
-              $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
-              mysqli_query($con, $update_query);
-              echo "Deal has been updated";
-              //echo mysqli_fetch_assoc($result);
+              if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
+                $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+                mysqli_query($con, $update_query);
+                echo "Deal has been updated";
+                //echo mysqli_fetch_assoc($result)
+              }
+              elseif ($deal_status_init == "INACTIVE") {
+                $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
+                mysqli_query($con, $update_query);
+                echo "Deal has been updated";
+                //echo mysqli_fetch_assoc($result);
+                // code...
+              }
+
             }
             else {
               echo "Wrong deal ID!";
