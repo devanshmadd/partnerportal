@@ -260,6 +260,7 @@ error_reporting(E_ALL);
                <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
                <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
                <h3>Select deal status:</h3>
+               <br>
                <div class="options">
                  <select name="deal_status" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
                                   <option value="Select Deal Status">Select Deal Status</option>
