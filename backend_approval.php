@@ -18,21 +18,28 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $result = mysqli_query($con, $query);
     if($result && mysqli_num_rows($result)>0)
     {
-      echo "Deal has the same status. Please change according to request!";
+      $row = mysqli_fetch_assoc($result);
+      if ($row["status"] == $deal_status) {
+          echo "Deal has the same status. Please change according to request!";
+      }
+      else {
+        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($deal_status))
+        {
+          //saving to database
+          //$deal_id = random_num(6);
+          $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+          mysqli_query($con, $update_query);
+          echo "Hogaya bey";
+        }
+        else {
+          echo 'Please enter all the information!';
+        }
+      }
+
     }
     else {
+      echo 'No such record!';
 
-          if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($deal_status))
-          {
-            //saving to database
-            //$deal_id = random_num(6);
-            $query = "UPDATE deals (deal_id, partner_email, partner_organization, status) VALUES ('$deal_id', '$partner_email', '$partner_organization', '$deal_status') WHERE deal_id = '$deal_id'";
-            mysqli_query($con, $query);
-            header("Location: register_deal.php");
-          }
-          else {
-              echo 'Please enter all the information!';
-          }
     }
 
 }
@@ -61,15 +68,16 @@ error_reporting(E_ALL);
      document.getElementById("subcategory").style.display= "flex";
      document.getElementById("")
      document.getElementById("subcategory").options[0]=new Option("Please select the detailed status","");
-     document.getElementById("subcategory").options[1]=new Option("Lead Generated","Lead Generated");
-     document.getElementById("subcategory").options[2]=new Option("Product Demonstration Completed","Product Demonstration Completed");
-     document.getElementById("subcategory").options[3]=new Option("Proof of Value","Proof of Value");
-     document.getElementById("subcategory").options[4]=new Option("Quotes Shared","Quotes Shared");
-     document.getElementById("subcategory").options[5]=new Option("Technical Win","Technical Win");
-     document.getElementById("subcategory").options[6]=new Option("Business Win","Business Win");
-     document.getElementById("subcategory").options[7]=new Option("Won","Won");
-     document.getElementById("subcategory").options[8]=new Option("Differed","Differed");
-     document.getElementById("subcategory").options[9]=new Option("Lost","Lost");
+     document.getElementById("subcategory").options[1]=new Option("Approved","Approved");
+     document.getElementById("subcategory").options[2]=new Option("Lead Generated","Lead Generated");
+     document.getElementById("subcategory").options[3]=new Option("Product Demonstration Completed","Product Demonstration Completed");
+     document.getElementById("subcategory").options[4]=new Option("Proof of Value","Proof of Value");
+     document.getElementById("subcategory").options[5]=new Option("Quotes Shared","Quotes Shared");
+     document.getElementById("subcategory").options[6]=new Option("Technical Win","Technical Win");
+     document.getElementById("subcategory").options[7]=new Option("Business Win","Business Win");
+     document.getElementById("subcategory").options[8]=new Option("Won","Won");
+     document.getElementById("subcategory").options[9]=new Option("Differed","Differed");
+     document.getElementById("subcategory").options[10]=new Option("Lost","Lost");
      break;
      case "INACTIVE" :
      document.getElementById("subcategory").style.display= "none";
