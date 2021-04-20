@@ -298,7 +298,9 @@ error_reporting(E_ALL);
               <img src="logo_galaxkey" alt="">
             </div>
             <ul class = "list-items">
-              <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'signup.php';">Sign up</button></li>
+              <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'adminportal.html';">Home</button></li>
+              <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'signup.php';">Sign up a partner</button></li>
+
             </ul>
           </nav>
         </div>

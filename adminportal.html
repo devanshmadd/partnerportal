@@ -1,86 +1,8 @@
-<?php
-
-session_start();
-
-include("connection.php");
-include("functions.php");
-include('smtp/PHPMailerAutoload.php');
-
-if($_SERVER['REQUEST_METHOD'] == "POST")
-{
-  //something was posted
-
-
-  $partner_email = $_POST['partner_email'];
-  $partner_password = $_POST['partner_password'];
-  $partner_priv = $_POST['partner_priv'];
-  $partner_organization = $_POST['partner_organization'];
-  $hashed_pass = password_hash($partner_password, PASSWORD_BCRYPT);
-  $mail = new PHPMailer(true);
-  $mail ->isSMTP();
-  $mail ->Host="smtp.outlook.com";
-  $mail ->Port=587;
-  $mail ->SMTPSecure="tls";
-  $mail ->SMTPAuth = true;
-  $mail ->Username = "technical.executive.mea@galaxkey.com";
-  $mail ->Password = "Apple_dummy_123";
-  $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-  $mail ->addAddress("devansh.madd99@gmail.com");
-  $mail ->addAddress("hassankhan825@gmail.com");
-  $mail ->IsHTML(true);
-  $mail ->IsHTML(true);
-  $mail -> SMTPOptions = array('ssl'=>array(
-    'verify_peer'=>false,
-    'verify_peer_name'=>false,
-    'allow_self_signed'=>false
-  ));
-
-  $query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
-  $result = mysqli_query($con, $query);
-  if($result && mysqli_num_rows($result)>0)
-  {
-    echo "User already exists!";
-  }
-  else {
-
-    if(!empty($partner_email) && !empty($partner_password) && !empty($partner_priv) && !empty($partner_organization))
-    {
-      //saving to database
-      //$deal_id = random_num(6);
-      $query = "INSERT INTO user_creds (partner_organization, partner_email, partner_password, partner_priv) VALUES ('$partner_organization', '$partner_email', '$hashed_pass', '$partner_priv')";
-      mysqli_query($con, $query);
-      $mail ->Subject="Partner Signed up";
-      $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
-      $mail ->Body=$html;
-      if($mail->send()){
-        echo "Mail Sent";
-      }else{
-        echo "error occured";
-      }
-      header("Location: login.php");
-
-    }
-    else {
-      echo 'Please enter all the information!';
-    }
-  }
-
-}
-
-ini_set('display_errors', '1');
-ini_set('display_startup_errors', '1');
-error_reporting(E_ALL);
-
-
-
-
-?>
-
 <!DOCTYPE html>
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Sign up partner</title>
+  <title>Admin portal home page</title>
 </head>
 <body>
   <style media="screen">
@@ -244,7 +166,7 @@ error_reporting(E_ALL);
         <img src="logo_galaxkey" alt="">
       </div>
       <ul class = "list-items">
-        <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'adminportal.html';">Home</button></li>
+        <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'signup.php';">Sign up a partner</button></li>
         <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'backend_approval.php';">Deal Management</button></li>
       </ul>
     </nav>
@@ -254,19 +176,8 @@ error_reporting(E_ALL);
 
     <div class="welcome">
       <img src="logo_galaxkey" alt="">
-      <h1>Sign up the partner.</h1>
+      <h1>Admin access for the Partner Portal.</h1>
     </div>
-    <div id="box">
-      <form  method="post">
-        <div class= 'form-heading'>Sign up the Partner!</div>
-        <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
-        <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
-        <input id="text" type="password" name="partner_password" value="" placeholder="password"><br><br>
-        <input id="text" type="text" name="partner_priv" value="" placeholder="privilege"><br><br>
-        <input id="button" type="submit" name="" value="Sign up"><br><br>
-      </form>
-    </div>
-
 
   </div>
   <div class="footer">
