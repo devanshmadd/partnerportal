@@ -316,7 +316,22 @@ error_reporting(E_ALL);
                <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
                <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
                <!-- <input id="text" type="text" name="deal_date" value="" placeholder="deal date"><br><br> -->
-               <input id="text" type="text" name="days_active" value="" placeholder="days active"><br><br>
+
+
+               <label for="start">Expiry date:</label>
+                <input type="date" id="start" name="trip-start"
+                value=""
+                min="2009-12-31" max="2021-12-31">
+
+                <script>
+                n =  new Date();
+                y = n.getFullYear();
+                m = n.getMonth() + 1;
+                d = n.getDate();
+                document.getElementById("start").innerHTML = y + "/" + m + "/" + d;
+                </script>
+
+
                <h3>Select deal status:</h3>
                <br>
                <div class="options">
