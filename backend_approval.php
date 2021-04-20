@@ -15,7 +15,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $partner_email = $_POST['partner_email'];
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
-    $days_active = $_POST['days_active'];
+    // $days_active = $_POST['days_active'];
+    $expiry_date = $_POST['expiry_date'];
     // $deal_date = $_POST['deal_date'];
     $query = "SELECT * FROM deals WHERE deal_id = '$deal_id'";
     $result = mysqli_query($con, $query);
@@ -46,13 +47,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           echo "Deal has the same status. Please change according to request!";
       }
       else {
-        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($days_active))
+        if(!empty($deal_id) && !empty($partner_organization) && !empty($partner_email) && !empty($deal_status_init) && !empty($expiry_date))
         {
-          //saving to database
-          //$deal_id = random_num(6);
 
             if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-              $update_query = "UPDATE deals SET status = '$deal_status', days_active = '$days_active', deal_date = CURDATE() WHERE deal_id = '$deal_id';";
+              $update_query = "UPDATE deals SET status = '$deal_status', deal_date = CURDATE(), expiry_date = '$expiry_date' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
               echo "Hogaya bey";
               $mail ->Subject="Deal Approved";
@@ -290,6 +289,19 @@ error_reporting(E_ALL);
           align-items: center;
         }
 
+        h1, p, #output{width:100%;text-align:center;}
+
+#output{min-height:50px;}
+
+input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #888;text-align:center;margin:4px}
+
+
+        #dt {
+  text-indent: -500px;
+  height: 25px;
+  width: 200px;
+}
+
         </style>
 
         <div class="nav-bar">
@@ -323,19 +335,115 @@ error_reporting(E_ALL);
                <!-- <input id="text" type="text" name="deal_date" value="" placeholder="deal date"><br><br> -->
 
 
-               <label for="start">Expiry date:</label>
-                <input type="date" id="start" name="trip-start"
-                value=""
-                min="2009-12-31" max="2021-12-31">
+               <label for="expiry_date">Deal Expiry Date:</label>
+              <input type="date" id="expiry_date" name="expiry_date">
 
-                <script>
+              <!-- <button id="click">Calculate</button> -->
+<!--
+              <div id="output"></div>
+
+              <script>
+
+              $(function(){
+              	var d1;
+              	var d2;
+
+              	var t = new Date();
+              	var month = t.getMonth();
+              	var day = t.getDay();
+              	var date = t.getDate();
+              	var year = t.getFullYear();
+              	var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
+              	var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
+              	var today = "0"+(month+1)+"/"+date+"/"+year;
+              	var dateStr = days[day]+', '+months[month]+' '+date+', '+year;
+              	document.getElementById("alternate1").value = dateStr;
+              	document.getElementById("datepicker1").setAttribute("value",today);
+              	var bb = today.split(' ');
+              	d1 = new Date(bb);
+
+
+              	$("#datepicker1").datepicker({
+              		showOtherMonths: true,
+              		selectOtherMonths: true,
+              		changeMonth: true,
+              		changeYear: true,
+              		altField: "#alternate1",
+              		altFormat: "DD, MM d, yy",
+
+              		onSelect: function() {
+              			var a = $.datepicker.formatDate("yy mm dd", $(this).datepicker("getDate"));
+              			var b = a.split(' ');
+              			d1 = new Date(b);
+              		}
+              	});
+
+              		$("#datepicker2").datepicker({
+              		showOtherMonths: true,
+              		selectOtherMonths: true,
+              		changeMonth: true,
+              		changeYear: true,
+              		altField: "#alternate2",
+              		altFormat: "DD, MM d, yy",
+
+              		onSelect: function() {
+              			var c = $.datepicker.formatDate("yy mm dd", $(this).datepicker("getDate"));
+              			var g = c.split(' ');
+              			d2 = new Date(g);
+              		}
+              	});
+
+              	$("#click").on('click',function(){
+              	var oneDay = 24*60*60*1000;	// hours*minutes*seconds*milliseconds
+              	var diffDays = (d2-d1)/oneDay;
+              	document.getElementById("output").innerHTML = diffDays + " days";
+              	});
+
+              });
+                </script> -->
+
+
+
+
+
+
+               <!-- <label for="start">Expiry date:</label>
+                <input type="date" id="expiry_date" name="expiry_date"
+                value=" "
+                min="2009-12-31" max="2021-12-31"> -->
+
+                <!-- <script>
                 n =  new Date();
                 y = n.getFullYear();
                 m = n.getMonth() + 1;
                 d = n.getDate();
-                document.getElementById("start").innerHTML = y + "/" + m + "/" + d;
-                </script>
+                document.getElementById("expiry_date").innerHTML = y + "/" + m + "/" + d;
+                </script> -->
 
+
+                <!-- <input type="date" id="dt" name: "expiry_date" onchange="mydate1();" hidden/>
+                <input type="text" id="ndt"  name: "expiry_date" onclick="mydate();" hidden />
+                <input type="button" name: "expiry_date" Value="Date" onclick="mydate();" />
+
+                <script>
+                function mydate() {
+                  //alert("");
+                  document.getElementById("dt").hidden = false;
+                  document.getElementById("ndt").hidden = true;
+                }
+
+                function mydate1() {
+                  d = new Date(document.getElementById("dt").value);
+                  dt = d.getDate();
+                  mn = d.getMonth();
+                  mn++;
+                  yy = d.getFullYear();
+                  document.getElementById("ndt").value = yy + "/" + mn + "/" + dt
+                  document.getElementById("ndt").hidden = false;
+                  document.getElementById("dt").hidden = true;
+                } -->
+
+              <!-- </script> -->
 
                <h3>Select deal status:</h3>
                <br>

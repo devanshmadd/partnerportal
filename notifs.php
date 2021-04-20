@@ -1,14 +1,19 @@
+
 <?php
 
 session_start();
 include("connection.php");
 
-echo "sup";
 
-$days_num_query = "SELECT * FROM deals WHERE DATEDIFF()
+
+$days_num_query = "SELECT *,DATEDIFF(expiry_date, CURDATE()) AS days_active FROM deals WHERE DATEDIFF(expiry_date, CURDATE())=5;";
 $result = mysqli_query($con, $days_num_query);
+$row = mysqli_fetch_assoc($result);
+$days_num = $row["days_active"];
+$partner_name = $row["partner_name"];
+$deal_id = $row["deal_id"];
 
-$days_num = $row['days_active'];
+$partner_organization =$row["partner_organization"];
 include('smtp/PHPMailerAutoload.php');
 $mail = new PHPMailer(true);
 $mail ->isSMTP();
@@ -33,23 +38,18 @@ $mail -> SMTPOptions = array('ssl'=>array(
   'allow_self_signed'=>false
 ));
 
-
-if(!$result || mysqli_num_rows($result) == 0)
+$i=mysqli_num_rows($result);
+if(!$result || $i == 0)
 {
   echo "All deals updated";
 }
 
 else {
-  while($row = mysqli_fetch_assoc($result)){
-      //if($mail->send()){
-        echo "Mail Sent";
+  while($i--){
+      if($mail->send()){
+        echo "mz";
+      }
   }
 }
-
-
-
-
-
-
 
  ?>
