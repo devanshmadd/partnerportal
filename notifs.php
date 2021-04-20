@@ -3,8 +3,7 @@
 
 session_start();
 include("connection.php");
-
-
+include('smtp/PHPMailerAutoload.php');
 
 $days_num_query = "SELECT *,DATEDIFF(expiry_date, CURDATE()) AS days_active FROM deals WHERE DATEDIFF(expiry_date, CURDATE())=5;";
 $result = mysqli_query($con, $days_num_query);
@@ -14,7 +13,6 @@ $partner_name = $row["partner_name"];
 $deal_id = $row["deal_id"];
 $partner_organization =$row["partner_organization"];
 
-include('smtp/PHPMailerAutoload.php');
 $mail = new PHPMailer(true);
 $mail ->isSMTP();
 $mail ->Host="smtp.outlook.com";
