@@ -568,7 +568,7 @@ error_reporting(E_ALL);
            <li> <button onclick="location.href = 'https://manager.galaxkey.com/downloads';">Galaxkey Client</button></li>
            <li><button onclick="location.href = 'https://www.galaxkey.com/datasheets/';">Datasheets</button></li>
            <li><button onclick="location.href = 'https://www.galaxkey.com/case-studies/';">Case Studies</button></li>
-           <li><button onclick="location.href = '#';">User Guide</button></li>
+           <li><button onclick="location.href = 'userguides.html';">User Guide</button></li>
          </ul>
        </div>
        <button onclick="location.href = 'logout.php';">Logout</button>
