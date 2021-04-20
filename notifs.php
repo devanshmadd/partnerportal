@@ -12,8 +12,8 @@ $row = mysqli_fetch_assoc($result);
 $days_num = $row["days_active"];
 $partner_name = $row["partner_name"];
 $deal_id = $row["deal_id"];
-
 $partner_organization =$row["partner_organization"];
+
 include('smtp/PHPMailerAutoload.php');
 $mail = new PHPMailer(true);
 $mail ->isSMTP();
@@ -38,6 +38,7 @@ $mail -> SMTPOptions = array('ssl'=>array(
   'allow_self_signed'=>false
 ));
 
+
 $i=mysqli_num_rows($result);
 if(!$result || $i == 0)
 {
@@ -48,6 +49,8 @@ else {
   while($i--){
       if($mail->send()){
         echo "mz";
+      }else{
+        echo "error occured";
       }
   }
 }
