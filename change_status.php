@@ -227,7 +227,7 @@ return true;
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 <link rel="stylesheet" href="assets/css/style.css">
-     <title></title>
+     <title>Change Deal Status</title>
    </head>
    <body>
 
@@ -819,9 +819,9 @@ justify-content: center;
             <h1>Change deal status</h1>
             <form id = "form" method="post">
               <input type="text" name="deal_id" placeholder="Enter Deal ID"><br>
-              <div class="change" >
+              <br><div class="change" >
                 <h3>Select deal status:</h3>
-                <div class="options">
+                <br><div class="options">
                   <select name="deal_status" onchange="javascript: dynamicdropdown(this.options[this.selectedIndex].value);">
                                    <option value="Select Deal Status">Select Deal Status</option>
                     <option value="ACTIVE">ACTIVE</option>
