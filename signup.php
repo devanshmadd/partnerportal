@@ -52,7 +52,7 @@ error_reporting(E_ALL);
 <html lang="en" dir="ltr">
 <head>
   <meta charset="utf-8">
-  <title>Login</title>
+  <title>Sign up partner</title>
 </head>
 <body>
   <style media="screen">
@@ -216,16 +216,20 @@ error_reporting(E_ALL);
         <img src="logo_galaxkey" alt="">
       </div>
       <ul class = "list-items">
-        <li><a href="https://www.galaxkey.com/aboutgalaxkey/" target="_blank">About</a></li>
-        <li><a href="https://www.galaxkey.com/contact/contact/" target="_blank">Contact</a></li>
+        <li><button style = "background: white; font-size: 20px;" onclick="location.href = 'backend_approval.php';">Deal Management</button></li>
       </ul>
     </nav>
   </div>
 
   <div class="main-box">
+
+    <div class="welcome">
+      <img src="logo_galaxkey" alt="">
+      <h1>Admin access for the Partner Portal.</h1>
+    </div>
     <div id="box">
       <form  method="post">
-        <div class= 'form-heading'>Sign up!</div>
+        <div class= 'form-heading'>Sign up Partner!</div>
         <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
         <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
         <input id="text" type="password" name="partner_password" value="" placeholder="password"><br><br>
@@ -233,10 +237,7 @@ error_reporting(E_ALL);
         <input id="button" type="submit" name="" value="Sign up"><br><br>
       </form>
     </div>
-    <div class="welcome">
-      <img src="logo_galaxkey" alt="">
-      <h1>Welcome to the Partner Portal.</h1>
-    </div>
+
 
   </div>
   <div class="footer">
