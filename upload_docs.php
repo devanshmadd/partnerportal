@@ -462,9 +462,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
         <input type="file" name="my_image">
 
-        <input type="submit"
+        <input type="submit" onclick= myFunction()
         name="submit"
         value="Upload">
+
+        <script>
+        function myFunction() {
+          alert("Documents have been uploaded. Thank you. \nClick OK. ");
+        }
+        </script>
 
       </form>
 

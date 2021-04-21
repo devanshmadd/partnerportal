@@ -354,112 +354,7 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                <label for="expiry_date">Deal Expiry Date:</label>
               <input type="date" id="expiry_date" name="expiry_date">
 
-              <!-- <button id="click">Calculate</button> -->
-<!--
-              <div id="output"></div>
 
-              <script>
-
-              $(function(){
-              	var d1;
-              	var d2;
-
-              	var t = new Date();
-              	var month = t.getMonth();
-              	var day = t.getDay();
-              	var date = t.getDate();
-              	var year = t.getFullYear();
-              	var days = ["Sunday","Monday","Tuesday","Wednesday","Thursday","Friday","Saturday"];
-              	var months = ["January","February","March","April","May","June","July","August","September","October","November","December"];
-              	var today = "0"+(month+1)+"/"+date+"/"+year;
-              	var dateStr = days[day]+', '+months[month]+' '+date+', '+year;
-              	document.getElementById("alternate1").value = dateStr;
-              	document.getElementById("datepicker1").setAttribute("value",today);
-              	var bb = today.split(' ');
-              	d1 = new Date(bb);
-
-
-              	$("#datepicker1").datepicker({
-              		showOtherMonths: true,
-              		selectOtherMonths: true,
-              		changeMonth: true,
-              		changeYear: true,
-              		altField: "#alternate1",
-              		altFormat: "DD, MM d, yy",
-
-              		onSelect: function() {
-              			var a = $.datepicker.formatDate("yy mm dd", $(this).datepicker("getDate"));
-              			var b = a.split(' ');
-              			d1 = new Date(b);
-              		}
-              	});
-
-              		$("#datepicker2").datepicker({
-              		showOtherMonths: true,
-              		selectOtherMonths: true,
-              		changeMonth: true,
-              		changeYear: true,
-              		altField: "#alternate2",
-              		altFormat: "DD, MM d, yy",
-
-              		onSelect: function() {
-              			var c = $.datepicker.formatDate("yy mm dd", $(this).datepicker("getDate"));
-              			var g = c.split(' ');
-              			d2 = new Date(g);
-              		}
-              	});
-
-              	$("#click").on('click',function(){
-              	var oneDay = 24*60*60*1000;	// hours*minutes*seconds*milliseconds
-              	var diffDays = (d2-d1)/oneDay;
-              	document.getElementById("output").innerHTML = diffDays + " days";
-              	});
-
-              });
-                </script> -->
-
-
-
-
-
-
-               <!-- <label for="start">Expiry date:</label>
-                <input type="date" id="expiry_date" name="expiry_date"
-                value=" "
-                min="2009-12-31" max="2021-12-31"> -->
-
-                <!-- <script>
-                n =  new Date();
-                y = n.getFullYear();
-                m = n.getMonth() + 1;
-                d = n.getDate();
-                document.getElementById("expiry_date").innerHTML = y + "/" + m + "/" + d;
-                </script> -->
-
-
-                <!-- <input type="date" id="dt" name: "expiry_date" onchange="mydate1();" hidden/>
-                <input type="text" id="ndt"  name: "expiry_date" onclick="mydate();" hidden />
-                <input type="button" name: "expiry_date" Value="Date" onclick="mydate();" />
-
-                <script>
-                function mydate() {
-                  //alert("");
-                  document.getElementById("dt").hidden = false;
-                  document.getElementById("ndt").hidden = true;
-                }
-
-                function mydate1() {
-                  d = new Date(document.getElementById("dt").value);
-                  dt = d.getDate();
-                  mn = d.getMonth();
-                  mn++;
-                  yy = d.getFullYear();
-                  document.getElementById("ndt").value = yy + "/" + mn + "/" + dt
-                  document.getElementById("ndt").hidden = false;
-                  document.getElementById("dt").hidden = true;
-                } -->
-
-              <!-- </script> -->
 
                <h3>Select deal status:</h3>
                <br>
@@ -487,7 +382,12 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
              </div>
              <br>
              <br>
-               <input id="button" type="submit" name="" value="Update deal"><br><br>
+               <input id="button" onclick = myFunction() type="submit" name="" value="Update deal"><br><br>
+               <script>
+               function myFunction() {
+                 alert("Deal status have been updated onto. \nClick OK. ");
+               }
+               </script>
              </form>
            </div>
 

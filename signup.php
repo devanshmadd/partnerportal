@@ -267,7 +267,12 @@ error_reporting(E_ALL);
         <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
         <input id="text" type="password" name="partner_password" value="" placeholder="password"><br><br>
         <input id="text" type="text" name="partner_priv" value="" placeholder="privilege"><br><br>
-        <input id="button" type="submit" name="" value="Sign up"><br><br>
+        <input id="button" onclick=myfunction() type="submit" name="" value="Sign up"><br><br>
+        <script>
+        function myFunction() {
+          alert("User has been signed up. They have been notified as well with their credentials.\nClick OK. ");
+        }
+        </script>
       </form>
     </div>
 

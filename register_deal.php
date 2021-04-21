@@ -25,6 +25,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, deal_date, expiry_date) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status',CURDATE(),NULL) ";
     mysqli_query($con, $query);  //Saving all the data to database
 
+<<<<<<< Updated upstream
 
     $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND partner_organization = '$partner_organization';";
     $result_check_query = mysqli_query($con, $check_query);
@@ -62,6 +63,37 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     else{
       echo "Error has occured! Deal already exists";
     }
+=======
+    $mail = new PHPMailer(true);
+    $mail ->isSMTP();
+    $mail ->Host="smtp.outlook.com";
+    $mail ->Port=587;
+    $mail ->SMTPSecure="tls";
+    $mail ->SMTPAuth = true;
+    $mail ->Username = "technical.executive.mea@galaxkey.com";
+    $mail ->Password = "Apple_dummy_123";
+    $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+    $mail ->addAddress("devansh.madd99@gmail.com");
+    $mail ->addAddress("business.executive.mea@galaxkey.com");
+    $mail ->addAddress("hassankhan825@gmail.com");
+    $mail ->IsHTML(true);
+    $mail ->IsHTML(true);
+    $mail ->Subject="New Deal Registered, Pending Approval";
+    $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table>";
+    $mail ->Body=$html;
+    $mail -> SMTPOptions = array('ssl'=>array(
+      'verify_peer'=>false,
+      'verify_peer_name'=>false,
+      'allow_self_signed'=>false
+    ));
+    //
+    // if($mail->send()){
+    //
+    // echo 'Mail sent';
+    // }else{
+    //   echo "error occured";
+    // }
+>>>>>>> Stashed changes
 
 
   }
@@ -84,6 +116,7 @@ error_reporting(E_ALL);
   <title>Deal Registration</title>
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
+
 </head>
 <body>
   <style media="screen">
@@ -584,7 +617,13 @@ error_reporting(E_ALL);
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
         </select> <br><br>
-        <input id="button" type="submit" name="" value="Submit"><br><br>
+        <input id="button" onclick=myFunction() type="submit" name="" value="Submit">
+<script>
+function myFunction() {
+  alert("Thank you for registering. You will be notified upon your deal approval.\nClick OK. ");
+}
+</script>
+        <br><br>
         <a href="logout.php">Logout</a><br>
         <a href="change_status.php">Change deal status</a>
       </form>
@@ -680,6 +719,7 @@ error_reporting(E_ALL);
 
       <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
       <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+      <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 
     </body>
     </html>
