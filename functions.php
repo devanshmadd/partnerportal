@@ -44,7 +44,7 @@ function approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Approval Requested";
-  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";

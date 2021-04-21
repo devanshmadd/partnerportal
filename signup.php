@@ -49,7 +49,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $query = "INSERT INTO user_creds (partner_organization, partner_email, partner_password, partner_priv) VALUES ('$partner_organization', '$partner_email', '$hashed_pass', '$partner_priv')";
       mysqli_query($con, $query);
       $check_query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
-      $result_check_query = mysqli_query($con, $query);
+      $result_check_query = mysqli_query($con, $check_query);
       if($result_check_query && mysqli_num_rows($result_check_query)>0)
       {
         $mail ->Subject="Partner Signed up";
@@ -60,13 +60,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         }else{
           echo "error occured";
         }
-        header("Location: login.php");
-
+      header("Location: login.php");
       }
+    }
       else {
         echo 'Please enter all the information!';
       }
-    }
   }
 
 }
