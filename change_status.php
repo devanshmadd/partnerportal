@@ -3,43 +3,17 @@ session_start();
 
 include("connection.php");
 include("functions.php");
-include('smtp/PHPMailerAutoload.php');
 
-//include("login.php");
+
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
-    //something was posted
 
-    /*$partner_name = $_POST['partner_name'];
-    $partner_email = $_POST['partner_email'];
-    $partner_phone = $_POST['partner_phone'];
-    $client_name = $_POST['client_name'];
-    $client_email = $_POST['client_email'];
-    $client_phone = $_POST['client_phone'];*/
     $deal_id = $_POST['deal_id'];
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
     $partner_email = $_SESSION['partner_email'];
-    // $partner_name = $_SESSION['partner_name'];
     $partner_organization = $_SESSION['partner_organization'];
-    $mail = new PHPMailer(true);
-    $mail ->isSMTP();
-    $mail ->Host="smtp.outlook.com";
-    $mail ->Port=587;
-    $mail ->SMTPSecure="tls";
-    $mail ->SMTPAuth = true;
-    $mail ->Username = "technical.executive.mea@galaxkey.com";
-    $mail ->Password = "Apple_dummy_123";
-    $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-    $mail ->addAddress("devansh.madd99@gmail.com");
-    $mail ->addAddress("hassankhan825@gmail.com");
-    $mail ->IsHTML(true);
-    $mail ->IsHTML(true);
-    $mail -> SMTPOptions = array('ssl'=>array(
-      'verify_peer'=>false,
-      'verify_peer_name'=>false,
-      'allow_self_signed'=>false
-    ));
+
 
 
 
@@ -62,51 +36,26 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
               if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
-                 $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
+                 $update_query = "UPDATE deals SET status = 'Requested', expiry_date = NULL WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
-                 $mail ->Subject="Deal Status Changed";
-                 $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>Request for Approval</td></tr></table>";
-                 $mail ->Body=$html;
-                 if($mail->send()){
-                   echo "Mail Sent";
-                 }else{
-                   echo "error occured";
-                 }
-
+                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
+                 approval_req_partner($deal_id);
                 }
                 else{
-                  $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+                  $update_query = "UPDATE deals SET status = '$deal_status', expiry_date = NULL WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
-                  $mail ->Subject="Deal Status Changed";
-                  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
-                  $mail ->Body=$html;
-                  if($mail->send()){
-                    echo "Mail Sent";
-                  }else{
-                    echo "error occured";
-                  }
-                //  echo $deal_status_checker;
-
+                  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
+                  deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
               }
-
                 echo "Deal has been updated";
-                //echo mysqli_fetch_assoc($result)
               }
+
               elseif ($deal_status_init == "INACTIVE") {
-                $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
+                $update_query = "UPDATE deals SET status = '$deal_status_init', expiry_date = NULL WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
-
+                deal_inactivated($partner_name, $deal_id, $partner_organization);
                 echo "Deal has been updated";
-                $mail ->Subject="Deal Status Changed";
-                $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status_init</td></tr></table>";
-                $mail ->Body=$html;
-                if($mail->send()){
-                  echo "Mail Sent";
-                }else{
-                  echo "error occured";
-                }
-                //echo mysqli_fetch_assoc($result);
-                // code...
+
               }
 
             }
@@ -126,27 +75,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
                  $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
-                 $mail ->Subject="Deal Status Changed";
-                 $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>Request for Approval</td></tr></table>";
-                 $mail ->Body=$html;
-                 if($mail->send()){
-                   echo "Mail Sent";
-                 }else{
-                   echo "error occured";
-                 }
+                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
+                 approval_req_partner($deal_id);
                 }
                 else{
                   $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
-                  $mail ->Subject="Deal Status Changed";
-                  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
-                  $mail ->Body=$html;
-                  if($mail->send()){
-                    echo "Mail Sent";
-                  }else{
-                    echo "error occured";
-                  }
-                //  echo $deal_status_checker;
+                  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
+                  deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
 
               }
 
@@ -159,15 +95,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
                 echo "Deal has been updated";
-                $mail ->Subject="Deal Status Changed";
-                $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Organization:</td><td>$partner_organization</td></tr><tr><td>Status:</td><td>$deal_status_init</td></tr></table>";
-                $mail ->Body=$html;
-                if($mail->send()){
-                  echo "Mail Sent";
-                }else{
-                  echo "error occured";
-                }
-                //echo mysqli_fetch_assoc($result);
+                deal_inactivated($partner_name, $deal_id, $partner_organization);
                 // code...
               }
 
