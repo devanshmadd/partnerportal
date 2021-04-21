@@ -26,8 +26,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     mysqli_query($con, $query);  //Saving all the data to database
 
 
-    // Sending a mail on registering a new deal
-    include('smtp/PHPMailerAutoload.php');
+
     $mail = new PHPMailer(true);
     $mail ->isSMTP();
     $mail ->Host="smtp.outlook.com";
@@ -43,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $mail ->IsHTML(true);
     $mail ->IsHTML(true);
     $mail ->Subject="New Deal Registered, Pending Approval";
-    $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
+    $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table>";
     $mail ->Body=$html;
     $mail -> SMTPOptions = array('ssl'=>array(
       'verify_peer'=>false,

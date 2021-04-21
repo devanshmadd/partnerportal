@@ -52,6 +52,11 @@ else {
 }
 
 
+
+$req_days_query = "SELECT * FROM deals WHERE DATEDIFF(start_date, CURDATE())=7 AND expiry_date = NULL AND status = 'Requested';";
+$req_days_result = mysqli_query($con, $req_days_query);
+$row = mysqli_num_rows($req_days_result);
+
 $req_pending_mail = new PHPMailer(true);
 $req_pending_mail ->isSMTP();
 $req_pending_mail ->Host="smtp.outlook.com";
@@ -75,12 +80,9 @@ $req_pending_mail -> SMTPOptions = array('ssl'=>array(
   'allow_self_signed'=>false
 ));
 
-$req_days_query = "SELECT * FROM deals WHERE DATEDIFF(start_date, CURDATE())=7 AND expiry_date = NULL AND status = 'Requested';";
-$req_days_result = mysqli_query($con, $days_num_query);
-$row = mysqli_num_rows($req_days_result);
 if(!$result || $row == 0)
 {
-  echo "All deals updated";
+  echo "No deals in request";
 }
 
 else {
