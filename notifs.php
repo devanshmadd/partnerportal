@@ -43,19 +43,17 @@ if(!$result || $i == 0)
 
 else {
   while($i--){
-      //if($mail->send()){
+      if($mail->send()){
         echo "Send update notif to partner\n";
-    //  }else{
-    //    echo "error occured";
-    //  }
+      }else{
+        echo "error occured";
+      }
   }
 }
 
 
 
-$req_days_query = "SELECT * FROM deals WHERE DATEDIFF(start_date, CURDATE())=7 AND expiry_date = NULL AND status = 'Requested';";
-$req_days_result = mysqli_query($con, $req_days_query);
-$row = mysqli_num_rows($req_days_result);
+
 
 $req_pending_mail = new PHPMailer(true);
 $req_pending_mail ->isSMTP();
@@ -71,8 +69,8 @@ $req_pending_mail ->addAddress("business.executive.mea@galaxkey.com");
 $req_pending_mail ->addAddress("hassankhan825@gmail.com");
 $req_pending_mail ->IsHTML(true);
 $req_pending_mail ->IsHTML(true);
-$req_pending_mail ->Subject="Reminder: Update deal!";
-$html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
+$req_pending_mail ->Subject="Reminder: Approval Pending!";
+$html="<p>Please update deal pending request with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
 $req_pending_mail ->Body=$html;
 $req_pending_mail -> SMTPOptions = array('ssl'=>array(
   'verify_peer'=>false,
@@ -80,18 +78,23 @@ $req_pending_mail -> SMTPOptions = array('ssl'=>array(
   'allow_self_signed'=>false
 ));
 
-if(!$result || $row == 0)
+$req_days_query = "SELECT * FROM deals WHERE DATEDIFF(CURDATE(), deal_date)=7 AND expiry_date IS NULL AND status = 'Requested';";
+$req_days_result = mysqli_query($con, $req_days_query);
+$row = mysqli_num_rows($req_days_result);
+echo $row;
+
+if(!$req_days_result || $row == 0)
 {
   echo "No deals in request";
 }
 
 else {
   while($row--){
-      //if($mail->send()){
+      if($req_pending_mail->send()){
         echo "Send update notif to Galaxkey\n";
-    //  }else{
-    //    echo "error occured";
-    //  }
+      }else{
+        echo "error occured";
+      }
   }
 }
 

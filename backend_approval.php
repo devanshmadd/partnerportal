@@ -53,27 +53,43 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               $update_query = "UPDATE deals SET status = '$deal_status', deal_date = CURDATE(), expiry_date = '$expiry_date' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
               echo "Hogaya bey";
-              $mail ->Subject="Deal Approved";
-              $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
-              $mail ->Body=$html;
-              if($mail->send()){
-                echo "Mail Sent";
-              }else{
-                echo "error occured";
+              $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
+              $result_check_query = mysqli_query($con, $check_query);
+              $row = mysqli_num_rows($result_check_query);
+              if($row == 1){
+                    $mail ->Subject="Deal Approved";
+                    $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
+                    $mail ->Body=$html;
+                    if($mail->send()){
+                      echo "Mail Sent";
+                    }else{
+                      echo "error occured";
+                    }
+              }
+              else {
+                echo "Error has occured!";
               }
             }
+
             elseif ($deal_status_init == "INACTIVE") {
               $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
               echo "Hogaya bey";
-              $mail ->Subject="Deal Inactivated";
-              $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status :</td><td>$deal_status_init</td></tr></table>";
-              $mail ->Body=$html;
-              if($mail->send()){
-                echo "Mail Sent";
-              }else{
-                echo "error occured";
-              }
+              $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status_init';";
+              $result_check_query = mysqli_query($con, $check_query);
+              $row = mysqli_num_rows($result_check_query);
+              if($row == 1){
+                    $mail ->Subject="Deal Inactivated";
+                    $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status :</td><td>$deal_status_init</td></tr></table>";
+                    $mail ->Body=$html;
+                    if($mail->send()){
+                      echo "Mail Sent";
+                    }else{
+                      echo "error occured";
+                    }
+            }
+            else{
+              echo "Error has occured";
             }
 
         }
@@ -83,12 +99,13 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       }
 
     }
+  }
     else {
       echo 'No such record!';
 
     }
+  }
 
-}
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');

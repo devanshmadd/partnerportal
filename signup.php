@@ -48,19 +48,24 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       //$deal_id = random_num(6);
       $query = "INSERT INTO user_creds (partner_organization, partner_email, partner_password, partner_priv) VALUES ('$partner_organization', '$partner_email', '$hashed_pass', '$partner_priv')";
       mysqli_query($con, $query);
-      $mail ->Subject="Partner Signed up";
-      $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
-      $mail ->Body=$html;
-      if($mail->send()){
-        echo "Mail Sent";
-      }else{
-        echo "error occured";
-      }
-      header("Location: login.php");
+      $check_query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
+      $result_check_query = mysqli_query($con, $query);
+      if($result_check_query && mysqli_num_rows($result_check_query)>0)
+      {
+        $mail ->Subject="Partner Signed up";
+        $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
+        $mail ->Body=$html;
+        if($mail->send()){
+          echo "Mail Sent";
+        }else{
+          echo "error occured";
+        }
+        header("Location: login.php");
 
-    }
-    else {
-      echo 'Please enter all the information!';
+      }
+      else {
+        echo 'Please enter all the information!';
+      }
     }
   }
 

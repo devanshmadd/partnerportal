@@ -26,35 +26,43 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     mysqli_query($con, $query);  //Saving all the data to database
 
 
+    $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND partner_organization = '$partner_organization';";
+    $result_check_query = mysqli_query($con, $check_query);
+    $row = mysqli_num_rows($result_check_query);
+    if($row == 1){
+      $mail = new PHPMailer(true);
+      $mail ->isSMTP();
+      $mail ->Host="smtp.outlook.com";
+      $mail ->Port=587;
+      $mail ->SMTPSecure="tls";
+      $mail ->SMTPAuth = true;
+      $mail ->Username = "technical.executive.mea@galaxkey.com";
+      $mail ->Password = "Apple_dummy_123";
+      $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+      $mail ->addAddress("devansh.madd99@gmail.com");
+      $mail ->addAddress("business.executive.mea@galaxkey.com");
+      $mail ->addAddress("hassankhan825@gmail.com");
+      $mail ->IsHTML(true);
+      $mail ->IsHTML(true);
+      $mail ->Subject="New Deal Registered, Pending Approval";
+      $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table>";
+      $mail ->Body=$html;
+      $mail -> SMTPOptions = array('ssl'=>array(
+        'verify_peer'=>false,
+        'verify_peer_name'=>false,
+        'allow_self_signed'=>false
+      ));
 
-    $mail = new PHPMailer(true);
-    $mail ->isSMTP();
-    $mail ->Host="smtp.outlook.com";
-    $mail ->Port=587;
-    $mail ->SMTPSecure="tls";
-    $mail ->SMTPAuth = true;
-    $mail ->Username = "technical.executive.mea@galaxkey.com";
-    $mail ->Password = "Apple_dummy_123";
-    $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-    $mail ->addAddress("devansh.madd99@gmail.com");
-    $mail ->addAddress("business.executive.mea@galaxkey.com");
-    $mail ->addAddress("hassankhan825@gmail.com");
-    $mail ->IsHTML(true);
-    $mail ->IsHTML(true);
-    $mail ->Subject="New Deal Registered, Pending Approval";
-    $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table>";
-    $mail ->Body=$html;
-    $mail -> SMTPOptions = array('ssl'=>array(
-      'verify_peer'=>false,
-      'verify_peer_name'=>false,
-      'allow_self_signed'=>false
-    ));
-
-    if($mail->send()){
-      echo "Mail Sent";
-    }else{
-      echo "error occured";
+      if($mail->send()){
+        echo "Mail Sent";
+      }else{
+        echo "error occured";
+      }
     }
+    else{
+      echo "Error has occured! Deal already exists";
+    }
+
 
   }
   else {
@@ -564,9 +572,9 @@ error_reporting(E_ALL);
         echo $_SESSION['partner_organization']; ?>" placeholder="Organization" readonly><br><br>
         <input id="text" type="text" name="partner_name" placeholder="User Name"><br><br>
         <input id="text" type="text" name="partner_email" placeholder="Partner Email"
-        value="  <?php
+        value="<?php
         echo $_SESSION['partner_email'];
-        ?> "readonly>
+        ?>"readonly>
         <br><br>
         <input id="text" type="text" name="partner_phone" placeholder="Partner Phone"><br><br>
         <input id="text" type="text" name="client_name" placeholder="Client Name"><br><br>
