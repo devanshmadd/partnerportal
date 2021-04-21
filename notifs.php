@@ -44,7 +44,7 @@ if(!$result || $i == 0)
 else {
   while($i--){
       if($mail->send()){
-        echo "Send update notif to partner\n";
+        echo "Partner has been sent a mail to update the deal.\n";
       }else{
         echo "error occured";
       }
@@ -92,18 +92,27 @@ $req_pending_mail -> SMTPOptions = array('ssl'=>array(
 
 if(!$req_days_result || $row1 == 0)
 {
-  echo "No deals in request";
+  echo "\nNo deals in request";
 }
 
 else {
   while($row1--){
       if($req_pending_mail->send()){
-        echo "Send update notif to Galaxkey\n";
+        echo "\nUpdate notification sent to Galaxkey\n";
       }else{
-        echo "error occured";
+        echo "\nerror occured";
       }
   }
 }
+
+
+// $inactive_days_query = "UPDATE deals SET status = 'Inactive' WHERE DATEDIFF(expiry_date, CURDATE())=-2;";
+//
+// if (mysqli_query($con, $inactive_days_query)) {
+//   echo "Record updated successfully";
+// } else {
+//   echo "Error updating record: " . mysqli_error($conn);
+// }
 
 
  ?>
