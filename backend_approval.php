@@ -385,7 +385,7 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                <input id="button" onclick = myFunction() type="submit" name="" value="Update deal"><br><br>
                <script>
                function myFunction() {
-                 alert("Deal status have been updated onto. \nClick OK. ");
+                 alert("Deal status have been updated. \nClick OK. ");
                }
                </script>
              </form>

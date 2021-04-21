@@ -26,7 +26,7 @@ $mail ->addAddress("business.executive.mea@galaxkey.com");
 $mail ->addAddress("hassankhan825@gmail.com");
 $mail ->IsHTML(true);
 $mail ->IsHTML(true);
-$mail ->Subject="Reminder: Update deal!";
+$mail ->Subject="Reminder: Update deal before expiry!";
 $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
 $mail ->Body=$html;
 $mail -> SMTPOptions = array('ssl'=>array(
