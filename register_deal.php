@@ -63,7 +63,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     else{
       echo "Error has occured! Deal already exists";
     }
-=======
+
     $mail = new PHPMailer(true);
     $mail ->isSMTP();
     $mail ->Host="smtp.outlook.com";
@@ -86,14 +86,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       'verify_peer_name'=>false,
       'allow_self_signed'=>false
     ));
-    //
-    // if($mail->send()){
-    //
-    // echo 'Mail sent';
-    // }else{
-    //   echo "error occured";
-    // }
->>>>>>> Stashed changes
+    
+    if($mail->send()){
+
+    echo 'Mail sent';
+    }else{
+      echo "error occured";
+    }
+
 
 
   }
