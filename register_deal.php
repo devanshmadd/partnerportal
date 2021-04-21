@@ -22,7 +22,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   {
     //saving to database
     $deal_id = random_num(6);
-    $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, deal_date, days_active) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status',CURDATE(),0) ";
+    $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, deal_date, expiry_date) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status',CURDATE(),NULL) ";
     mysqli_query($con, $query);  //Saving all the data to database
 
 
@@ -42,7 +42,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $mail ->addAddress("hassankhan825@gmail.com");
     $mail ->IsHTML(true);
     $mail ->IsHTML(true);
-    $mail ->Subject="New Deal Registered";
+    $mail ->Subject="New Deal Registered, Pending Approval";
     $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
     $mail ->Body=$html;
     $mail -> SMTPOptions = array('ssl'=>array(
@@ -75,7 +75,7 @@ error_reporting(E_ALL);
 <head>
   <meta charset="utf-8">
   <title>Deal Registration</title>
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css"> 
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/css/bootstrap.min.css">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css">
 </head>
 <body>
