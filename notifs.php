@@ -44,7 +44,7 @@ else {
     $deal_id = $result_row["deal_id"];
     $deal_expiry = $result_row["expiry_date"];
     echo $partner_email . " " . $partner_organization . " " . $client_organization . " " . $deal_id . " " . $deal_expiry . "\n";
-    $html="<table><tr><td>Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
+    $html="<table><tr><td>Name:</td><td>$partner_name</td></tr><tr><td>Organization: </td><td>$partner_organization</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Client: </td><td>$client_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
     $mail ->Body=$html;
     $mail ->addAddress($partner_email);
     $mail ->addAddress("devansh.madd99@gmail.com");
@@ -96,7 +96,7 @@ else {
     $client_organization1 = $result_row1["client_name"];
     $deal_date1 = $result_row1["deal_date"];
     echo $partner_email1 . " " . $partner_organization1 . " " . $client_organization1 . " " . $deal_id1 . " " . $deal_date1 . "\n";
-    $html="<p>Please update deal pending request with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name1</td></tr><tr><td>Deal ID:</td><td>$deal_id1</td><tr><td>Organization: </td><td>$partner_organization1</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
+    $html="<p>Please update deal pending request with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name1</td></tr><tr><td>Organization: </td><td>$partner_organization1</td></tr><tr><td>Deal ID:</td><td>$deal_id1</td></tr><tr><td>Client: </td><td>$client_organization1</td></tr><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
     $req_pending_mail ->Body=$html;
     $req_pending_mail ->addAddress("devansh.madd99@gmail.com");
     $req_pending_mail ->addAddress("business.executive.mea@galaxkey.com");
@@ -111,10 +111,11 @@ else {
 //Auto Inactive deal where expiry passed for more than 2 days
 
   echo "Entering Auto inactive deals where expiry has passed more than two days";
-  $inactive_days_query = "UPDATE deals SET status = 'Inactive' WHERE expiry_date IS NOT NULL AND DATEDIFF(CURDATE(), expiry_date)=2 AND status<>'Inactive';";
-  $result2 = mysqli_query($con, $inactive_days_query);
-  $i=mysqli_num_rows($result2);
-  echo $i;
+  $cred_query = "SELECT * FROM deals WHERE expiry_date IS NOT NULL AND DATEDIFF(CURDATE(), expiry_date)=2 AND status<>'Inactive';";
+  $cred_result = mysqli_query($con, $cred_query);
+  $cred_rows = mysqli_num_rows($cred_result);
+
+
 
   $inactive_mail = new PHPMailer(true);
   $inactive_mail ->isSMTP();
@@ -127,9 +128,7 @@ else {
   $inactive_mail ->SetFrom("technical.executive.mea@galaxkey.com");
   $inactive_mail ->IsHTML(true);
   $inactive_mail ->IsHTML(true);
-  $inactive_mail ->Subject="Reminder: Deal status changed due to inactivity.";
-  $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
-  $inactive_mail ->Body=$html;
+  $inactive_mail ->Subject="Deal Inactivated!";
   $inactive_mail -> SMTPOptions = array('ssl'=>array(
     'verify_peer'=>false,
     'verify_peer_name'=>false,
@@ -137,32 +136,36 @@ else {
   ));
 
 
-  $cred_query = "SELECT * FROM deals WHERE expiry_date IS NOT NULL AND DATEDIFF(CURDATE(), expiry_date)=2 AND status<>'Inactive';";
-  $result_row2 = mysqli_query($con,$cred_query);
 
-
-  if(!$cred_query || $row1 == 0)
+  if(!$cred_result || $cred_rows == 0)
   {
-    echo "\nAll deals are up to date";
+    echo "\nNo deals left to be approved.";
   }
   else {
-    while($result_row2 = mysqli_fetch_assoc($cred_query)){
-      $partner_name2 = $result_row2["partner_name"];
-      $deal_id2 = $result_row2["deal_id"];
-      $partner_organization2 =$result_row2["partner_organization"];
-      $partner_email2 = $result_row2["partner_email"];
-      $client_organization2 = $result_row2["client_name"];
-      $deal_expiry2 = $result_row2["deal_expiry"];
-      echo $partner_email2 . " " . $partner_organization2 . " " . $client_organization2 . " " . $deal_id2 . " " . $deal_expiry2 . "\n";
-      $html="<p>Due to no further updates, deal status have been set to INACTIVE for the deals with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name2</td></tr><tr><td>Deal ID:</td><td>$deal_id2</td><tr><td>Organization: </td><td>$partner_organization2</td><tr><td>Deal Status: </td><td>Set to Inactive.</td></tr></table>";
-      $req_pending_mail ->Body=$html;
-      $inactive_mail ->addAddress($partner_email2);
+    echo "in else";
+    while($cred_array = mysqli_fetch_assoc($cred_result)){
+      $partner_name2 = $cred_array["partner_name"];
+      $deal_id2 = $cred_array["deal_id"];
+      $partner_organization2 =$cred_array["partner_organization"];
+      $partner_email2 = $cred_array["partner_email"];
+      $client_organization2 = $cred_array["client_name"];
+      $deal_date2 = $cred_array["deal_date"];
+      echo $partner_email2 . " " . $partner_organization2 . " " . $client_organization2 . " " . $deal_id2 . " " . $deal_date2 . "\n";
+      $html="<p>Due to no further updates, deal status have been set to INACTIVE for the deals with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name2</td></tr><tr><td>Organization: </td><td>$partner_organization2</td></tr><tr><td>Deal ID:</td><td>$deal_id2</td><tr><td>Client: </td><td>$client_organization2</td></tr><tr><td>Deal Status: </td><td>Set to Inactive.</td></tr></table>";
+      $inactive_mail ->Body=$html;
       $inactive_mail ->addAddress("devansh.madd99@gmail.com");
+      $inactive_mail ->addAddress("business.executive.mea@galaxkey.com");
+      $inactive_mail ->addAddress($partner_email2);
         if($inactive_mail->send()){
-          echo "\nPartner has been sent a mail regarding the inactive status of the deal.\n";
+          echo "\nUpdate notification sent to Galaxkey\n";
         }else{
           echo "\nerror occured";
         }
     }
+    $inactive_days_query = "UPDATE deals SET status = 'Inactive' WHERE expiry_date IS NOT NULL AND DATEDIFF(CURDATE(), expiry_date)=2 AND status<>'Inactive';";
+    mysqli_query($con, $inactive_days_query);
+
   }
+
+
  ?>
