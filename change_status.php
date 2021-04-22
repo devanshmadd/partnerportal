@@ -867,6 +867,8 @@ justify-content: center;
                   <th><span>Client Name</span></th>
                   <th><span>Client Number</span></th>
                   <th><span>Deal Status</span></th>
+                  <th><span>Deal Date</span></th>
+                  <th><span>Deal Expiry</span></th>
                 </tr>
 
               </thead>
@@ -887,7 +889,7 @@ justify-content: center;
                                             else {
 
                                               while($row = mysqli_fetch_assoc($result)) {
-                                                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
+                                                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
                                             }
                                           }
                                       }
@@ -901,7 +903,7 @@ justify-content: center;
                                             else {
 
                                               while($row = mysqli_fetch_assoc($result)) {
-                                                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td></tr>";
+                                                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
                                             }
 
                                           }

@@ -209,7 +209,7 @@ error_reporting(E_ALL);
           display: flex;
           flex-direction: column;
           align-items: center;
-          max-width: 50%;
+          max-width: 75%;
           background: #fff;
           padding: 10px 17px;
           -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
@@ -355,6 +355,39 @@ error_reporting(E_ALL);
           justify-content: center;
           align-items: center;
         }
+
+        @media (max-width: 1200px){
+
+          .main-box{
+            display: flex;
+            flex-direction: column;
+          }
+          #box{
+            margin-block: 15px;
+            min-width: 90%;
+            min-height: 100%;
+          }
+
+          #box form{
+            max-width: 100%;
+          }
+
+
+          #records{
+            min-width: 90%;
+          }
+          .keywords{
+            font-size: 1.25rem;
+          }
+          .keywords thead{
+            font-size: 1rem;
+          }
+
+
+
+
+        }
+
 
         h1, p, #output{width:100%;text-align:center;}
 
