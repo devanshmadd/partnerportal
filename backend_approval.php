@@ -204,6 +204,58 @@ error_reporting(E_ALL);
         }
 
 
+        #records{
+          border-radius: 15px;
+          display: flex;
+          flex-direction: column;
+          align-items: center;
+          max-width: 50%;
+          background: #fff;
+          padding: 10px 17px;
+          -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
+          height: 50vh;
+          margin: auto;
+          overflow: auto;
+        }
+
+        #records h2{
+          margin: 15px;
+          padding: 15px;
+        }
+
+        .keywords{
+          margin: 0 auto;
+          font-size: 1.2em;
+          margin-bottom: 15px;
+        }
+
+        .keywords thead{
+          cursor: pointer;
+          background: #c9dff0;
+        }
+
+        .keywords thead tr th {
+          font-weight: bold;
+          padding: 12px 30px;
+          padding-left: 42px;
+        }
+
+        .keywords thead tr th span {
+          /*padding-right: 20px;*/
+          background-repeat: no-repeat;
+          background-position: 100% 100%;
+        }
+
+
+        .keywords tbody tr {
+          color: #555;
+        }
+
+        .keywords tbody tr td {
+          text-align: center;
+          padding: 15px 10px;
+        }
+
 
         #box{
           display: flex;
@@ -336,14 +388,14 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
 
       <div class="main-box">
 
-        <div class="welcome">
+        <!-- <div class="welcome">
           <img src="logo_galaxkey" alt="">
           <h1>Deal Approval Portal</h1>
-        </div>
+        </div> -->
 
            <br><div id="box">
              <form  method="post">
-               <div class= 'form-heading'>Deal details<br>(Please copy the details from the email sent to you)</div>
+               <div class= 'form-heading'>Deal approval form.<br>(Fill the details based on the details in the mail received.)</div>
                <input id="text" type="text" name="deal_id" value="" placeholder="Enter Deal ID"><br><br>
                <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
                <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
@@ -390,6 +442,41 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
              </form>
            </div>
 
+
+           <div id="records">
+             <h2>Your current deal records are:</h2>
+             <table class='keywords'>
+               <thead>
+                 <tr>
+                   <th><span>Deal ID</span></th>
+                   <th><span>Partner Name</span></th>
+                   <th><span>Client Name</span></th>
+                   <th><span>Client Number</span></th>
+                   <th><span>Deal Status</span></th>
+                   <th><span>Deal Date</span></th>
+                   <th><span>Deal Expiry</span></th>
+                 </tr>
+
+               </thead>
+               <tbody>
+
+                 <?php
+
+                   $record_query = "SELECT * FROM deals";
+                   $result = mysqli_query($con, $record_query);
+                   if(!$result || mysqli_num_rows($result) == 0)
+                   {
+                     echo "<div>No records found!</div>";
+                   }
+                   else {
+                     while($row = mysqli_fetch_assoc($result)) {
+                       echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
+                     }
+                   }
+                 echo "</tbody> </table>";
+
+                 ?>
+               </div>
 
       </div>
       <div class="footer">
