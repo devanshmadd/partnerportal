@@ -25,7 +25,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
   $mail ->addAddress("devansh.madd99@gmail.com");
-  $mail ->addAddress("hassankhan825@gmail.com");
+  $mail -> addAddress("business.executive.mea@galaxkey.com");
+  //$mail ->addAddress("hassankhan825@gmail.com");
+  $mail -> addAddress($partner_email);
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail -> SMTPOptions = array('ssl'=>array(

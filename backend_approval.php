@@ -14,9 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $partner_email = $_POST['partner_email'];
     $deal_status_init = $_POST['deal_status'];
     $deal_status = $_POST['subcategory'];
-    // $days_active = $_POST['days_active'];
     $expiry_date = $_POST['expiry_date'];
-    // $deal_date = $_POST['deal_date'];
     $query = "SELECT * FROM deals WHERE deal_id = '$deal_id'";
     $result = mysqli_query($con, $query);
 
@@ -30,7 +28,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $mail ->Password = "Apple_dummy_123";
     $mail ->SetFrom("technical.executive.mea@galaxkey.com");
     $mail ->addAddress("devansh.madd99@gmail.com");
-    $mail ->addAddress("hassankhan825@gmail.com");
+    $mail ->addAddress("business.executive.mea@galaxkey.com");
+    $mail ->addAddress($partner_email);
     $mail ->IsHTML(true);
     $mail ->IsHTML(true);
     $mail -> SMTPOptions = array('ssl'=>array(
@@ -58,7 +57,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               $row = mysqli_num_rows($result_check_query);
               if($row == 1){
                     $mail ->Subject="Deal Approved";
-                    $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
+                    $html="<p>Your deal with the following details has been approved.</p><br><br><table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status:</td><td>$deal_status</td></tr></table>";
                     $mail ->Body=$html;
                     if($mail->send()){
                       echo "Mail Sent";
@@ -80,7 +79,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               $row = mysqli_num_rows($result_check_query);
               if($row == 1){
                     $mail ->Subject="Deal Inactivated";
-                    $html="<table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status :</td><td>$deal_status_init</td></tr></table>";
+                    $html="<p>Your deal with the following details has been inactivated.</p><br><br><table><tr><td>Deal ID:</td><td>$deal_id</td></tr><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Status :</td><td>$deal_status_init</td></tr></table>";
                     $mail ->Body=$html;
                     if($mail->send()){
                       echo "Mail Sent";

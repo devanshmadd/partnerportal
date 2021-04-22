@@ -52,7 +52,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                   }
 
                  approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                 approval_req_partner($deal_id);
+                 approval_req_partner($partner_email, $deal_id);
 
                 }
                 else{

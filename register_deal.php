@@ -29,34 +29,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $result_check_query = mysqli_query($con, $check_query);
     $row = mysqli_num_rows($result_check_query);
     if($row == 1){
-      $mail = new PHPMailer(true);
-      $mail ->isSMTP();
-      $mail ->Host="smtp.outlook.com";
-      $mail ->Port=587;
-      $mail ->SMTPSecure="tls";
-      $mail ->SMTPAuth = true;
-      $mail ->Username = "technical.executive.mea@galaxkey.com";
-      $mail ->Password = "Apple_dummy_123";
-      $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-      $mail ->addAddress("devansh.madd99@gmail.com");
-      $mail ->addAddress("business.executive.mea@galaxkey.com");
-      $mail ->addAddress("hassankhan825@gmail.com");
-      $mail ->IsHTML(true);
-      $mail ->IsHTML(true);
-      $mail ->Subject="New Deal Registered, Pending Approval";
-      $html="<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
-      $mail ->Body=$html;
-      $mail -> SMTPOptions = array('ssl'=>array(
-        'verify_peer'=>false,
-        'verify_peer_name'=>false,
-        'allow_self_signed'=>false
-      ));
-
-      if($mail->send()){
-        echo "Mail Sent";
-      }else{
-        echo "error occured";
-      }
+      new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_organization);
+      new_deal_reg_partner($partner_email, $partner_name, $deal_id, $partner_organization);
     }
     else{
       echo "Error has occured! Deal already exists";
