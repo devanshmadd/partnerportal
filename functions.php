@@ -23,7 +23,7 @@ function check_login($con)
 }
 
 
-function approval_req_galaxkey($partner_email, $deal_id, $partner_organization){
+function approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status){
 
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
@@ -42,8 +42,9 @@ function approval_req_galaxkey($partner_email, $deal_id, $partner_organization){
     'allow_self_signed'=>false
   ));
   $mail ->addAddress("business.executive.mea@galaxkey.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Approval Requested";
-  $html = "test";
+  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -72,7 +73,7 @@ function approval_req_partner($deal_id){
   ));
   $mail ->addAddress("devansh.madd99@gmail.com");
   $mail ->Subject="Deal Approval Requested";
-  $html="Your deal with deal ID: has been sent for approval";
+  $html="Your deal with deal ID: $deal_id has been sent for approval.<br> You will be notified upon its approval. <br> Thank you so much.";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -81,7 +82,7 @@ function approval_req_partner($deal_id){
   }
 }
 
-function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organization){
+function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organization,$deal_status){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";
@@ -100,7 +101,7 @@ function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organiza
   ));
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Status Changed, Update Expiry";
-  $html = "<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date</p>";
+  $html = "$partner_name has changed the deal status for the following deal: <table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status changed to: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -109,7 +110,7 @@ function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organiza
   }
 }
 
-function deal_status_changed_partner($partner_name, $deal_id, $partner_organization){
+function deal_status_changed_partner($partner_name, $deal_id, $partner_organization,$deal_status){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";

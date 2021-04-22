@@ -38,6 +38,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
                  $update_query = "UPDATE deals SET status = 'Requested', expiry_date = NULL WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
+
                  $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
                  $result_check_query = mysqli_query($con, $check_query);
                  $row = mysqli_num_rows($result_check_query);
@@ -49,23 +50,29 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                   else{
                     echo "Error has occured!";
                   }
+
+                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                 approval_req_partner($deal_id);
+
                 }
                 else{
                   $update_query = "UPDATE deals SET status = '$deal_status', expiry_date = NULL WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
+
                   $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
                   $result_check_query = mysqli_query($con, $check_query);
                   $row = mysqli_num_rows($result_check_query);
                   echo $row;
                   echo $partner_email;
                   if($row == 1){
-                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
-                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
+                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
                     echo "Deal has been updated";
                   }
                   else{
                     echo "Error has occured!";
                   }
+
               }
 
               }
@@ -103,6 +110,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
                  $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
                  mysqli_query($con, $update_query);
+
                  $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
                  $result_check_query = mysqli_query($con, $check_query);
                  $row = mysqli_num_rows($result_check_query);
@@ -114,10 +122,15 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                  else{
                    echo "Error has occured";
                  }
+
+                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                 approval_req_partner($deal_id);
+
                 }
                 else{
                   $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
                   mysqli_query($con, $update_query);
+
                   $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
                   $result_check_query = mysqli_query($con, $check_query);
                   $row = mysqli_num_rows($result_check_query);
@@ -129,6 +142,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                   else {
                     echo "Error has occured";
                   }
+
+                  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                  deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+
 
               }
 
@@ -822,8 +839,12 @@ justify-content: center;
                                    </div>
 
               <br><br>
-              <input id="button" type="submit" name="" value="Update Record"><br><br>
-
+              <input id="button" onclick = myFunction() type="submit" name="" value="Update Record"><br><br>
+              <script>
+              function myFunction() {
+                alert("Thank you for updating the status. You will be notified soon.\nClick OK. ");
+              }
+              </script>
             </form>
 
 

@@ -50,8 +50,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       mysqli_query($con, $query);
       $check_query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
       $result_check_query = mysqli_query($con, $check_query);
-      $query_rows = mysqli_num_rows($result_check_query);
-      if($result_check_query && $query_rows>0)
+      if($result_check_query && mysqli_num_rows($result_check_query)>0)
       {
         $mail ->Subject="Partner Signed up";
         $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
@@ -61,10 +60,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         }else{
           echo "error occured";
         }
-        header("Location: login.php");
-
-        }
+      header("Location: login.php");
       }
+    }
       else {
         echo 'Please enter all the information!';
       }
@@ -268,7 +266,12 @@ error_reporting(E_ALL);
         <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
         <input id="text" type="password" name="partner_password" value="" placeholder="password"><br><br>
         <input id="text" type="text" name="partner_priv" value="" placeholder="privilege"><br><br>
-        <input id="button" type="submit" name="" value="Sign up"><br><br>
+        <input id="button" onclick=myfunction() type="submit" name="" value="Sign up"><br><br>
+        <script>
+        function myFunction() {
+          alert("User has been signed up. They have been notified as well with their credentials.\nClick OK. ");
+        }
+        </script>
       </form>
     </div>
 
