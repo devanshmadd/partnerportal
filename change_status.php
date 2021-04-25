@@ -10,9 +10,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
     $deal_id = $_POST['deal_id'];
     $deal_status_init = $_POST['deal_status'];
-    if($deal_status_init = 'ACTIVE'){
-      $deal_status = $_POST['subcategory'];
-    }
     $partner_email = $_SESSION['partner_email'];
     $partner_organization = $_SESSION['partner_organization'];
 
@@ -36,47 +33,55 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $result = mysqli_query($con, $query);
             if ($result && mysqli_num_rows($result)>0) {
 
-              if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-                if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
-                 $update_query = "UPDATE deals SET status = 'Requested', expiry_date = NULL WHERE deal_id = '$deal_id';";
-                 mysqli_query($con, $update_query);
+              if($deal_status_init == 'ACTIVE'){
+                $deal_status = $_POST['subcategory'];
+                if(!empty($deal_status)){
+                  if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
+                   $update_query = "UPDATE deals SET status = 'Requested', expiry_date = NULL WHERE deal_id = '$deal_id';";
+                   mysqli_query($con, $update_query);
 
-                 $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
-                 $result_check_query = mysqli_query($con, $check_query);
-                 $row = mysqli_num_rows($result_check_query);
-                 if($row == 1){
-                   approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                   approval_req_partner($partner_email, $deal_id);
-                     echo "Deal has been updated";
-                     echo '<script>alert("You tried to change a requested deal. Please wait till it is approved.\nClick OK. ")</script>';
+                   $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
+                   $result_check_query = mysqli_query($con, $check_query);
+                   $row = mysqli_num_rows($result_check_query);
+                   if($row == 1){
+                     approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                     approval_req_partner($partner_email, $deal_id);
+                       echo "<script>alert(\"Deal has been updated\")</script>";
+                       echo '<script>alert(\"You tried to change a requested deal. Please wait till it is approved.\nClick OK. \")</script>';
+                    }
+                    else{
+                      echo "<script>alert(\"Error has occured!\")</script>";
+                    }
+
+
+
                   }
                   else{
-                    echo "Error has occured!";
+                    $update_query = "UPDATE deals SET status = '$deal_status', expiry_date = NULL WHERE deal_id = '$deal_id';";
+                    mysqli_query($con, $update_query);
+
+                    $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
+                    $result_check_query = mysqli_query($con, $check_query);
+                    $row = mysqli_num_rows($result_check_query);
+                    echo $row;
+                    echo $partner_email;
+                    if($row == 1){
+                      deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                      deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+                      echo "<script>alert(\"Deal has been updated\")</script>";
+                      echo '<script>alert(\"Thank you for updating the status. You will be notified soon.\nClick OK. \")</script>';
+                    }
+                    else{
+                      echo "<script>alert(\"Error has occured!\")</script>";
+                    }
+
                   }
-
-
 
                 }
-                else{
-                  $update_query = "UPDATE deals SET status = '$deal_status', expiry_date = NULL WHERE deal_id = '$deal_id';";
-                  mysqli_query($con, $update_query);
+                else {
+                  echo "<script>alert(\"Please enter all the information!\")</script>";
+                }
 
-                  $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
-                  $result_check_query = mysqli_query($con, $check_query);
-                  $row = mysqli_num_rows($result_check_query);
-                  echo $row;
-                  echo $partner_email;
-                  if($row == 1){
-                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
-                    echo "Deal has been updated";
-                    echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
-                  }
-                  else{
-                    echo "Error has occured!";
-                  }
-
-              }
 
               }
 
@@ -88,18 +93,18 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 $row = mysqli_num_rows($result_check_query);
                 if($row == 1){
                   deal_inactivated($partner_email, $deal_id, $partner_organization);
-                  echo "Deal has been updated";
+                  echo "<script>alert(\"Deal has been updated\")</script>";
                   echo '<script>alert("Thank you for updating the status. Deal has been inactivated.\nClick OK. ")</script>';
                 }
                 else {
-                  echo "Error has occured!";
+                  echo "<script>alert(\"Error has occured!\")</script>";
                 }
 
               }
 
             }
             else {
-              echo "Deal not approved or wrong deal ID!";
+              echo "<script>alert(\"Deal not approved or error!\")</script>";
               //echo mysqli_fetch_assoc($result);
             }
             //echo "test";
@@ -111,50 +116,57 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $result = mysqli_query($con, $query);
             if ($result && mysqli_num_rows($result)>0) {
               if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
-                if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
-                 $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
-                 mysqli_query($con, $update_query);
+                $deal_status = $_POST['subcategory'];
+                if (!empty($deal_status)) {
+                  if ($row["status"] == 'Inactive' || $row["status"] == "Requested") {
+                   $update_query = "UPDATE deals SET status = 'Requested' WHERE deal_id = '$deal_id';";
+                   mysqli_query($con, $update_query);
 
-                 $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
-                 $result_check_query = mysqli_query($con, $check_query);
-                 $row = mysqli_num_rows($result_check_query);
-                 if($row == 1){
-                   approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
+                   $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = 'Requested';";
+                   $result_check_query = mysqli_query($con, $check_query);
+                   $row = mysqli_num_rows($result_check_query);
+                   if($row == 1){
+                     approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
+                     approval_req_partner($deal_id);
+                     echo "<script>alert(\"Deal has been updated\")</script>";
+                     echo '<script>alert("You tried to change a requested deal. Please wait till it is approved.\nClick OK. ")</script>';
+
+                   }
+                   else{
+                     echo "<script>alert(\"Error has occured!\")</script>";
+                   }
+
+                   approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
                    approval_req_partner($deal_id);
-                   echo "Deal has been updated";
-                   echo '<script>alert("You tried to change a requested deal. Please wait till it is approved.\nClick OK. ")</script>';
 
-                 }
-                 else{
-                   echo "Error has occured";
-                 }
+                  }
+                  else{
+                    $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
+                    mysqli_query($con, $update_query);
 
-                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                 approval_req_partner($deal_id);
+                    $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
+                    $result_check_query = mysqli_query($con, $check_query);
+                    $row = mysqli_num_rows($result_check_query);
+                    if($row == 1){
+                      deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
+                      deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
+                      echo "<script>alert(\"Deal has been updated\")</script>";
+                      echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
+                    }
+                    else {
+                      echo "<script>alert(\"Error has occured!\")</script>";
+                    }
 
+                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+
+
+                  }
                 }
-                else{
-                  $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
-                  mysqli_query($con, $update_query);
+                else {
+                  echo "<script>alert(\"Please enter all the information!\")</script>";
+                }
 
-                  $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
-                  $result_check_query = mysqli_query($con, $check_query);
-                  $row = mysqli_num_rows($result_check_query);
-                  if($row == 1){
-                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
-                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
-                    echo "Deal has been updated";
-                    echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
-                  }
-                  else {
-                    echo "Error has occured";
-                  }
-
-                  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                  deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
-
-
-              }
 
 
                 //echo mysqli_fetch_assoc($result)
@@ -164,22 +176,22 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               elseif ($deal_status_init == "INACTIVE") {
                 $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
                 mysqli_query($con, $update_query);
-                echo "Deal has been updated";
+                echo "<script>alert(\"Deal has been updated\")</script>";
                 $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status_init';";
                 $result_check_query = mysqli_query($con, $check_query);
                 $row = mysqli_num_rows($result_check_query);
                 if($row == 1){
                   deal_inactivated($partner_email, $deal_id, $partner_organization);
-                  echo "Deal has been updated";
+                  echo "<script>alert(\"Deal has been updated\")</script>";
                   echo '<script>alert("Thank you for updating the status. Deal has been inactivated.\nClick OK. ")</script>';
                 }
                 else {
-                  echo "Error has occured!";
+                  echo "<script>alert(\"Error has occured!\")</script>";
                 }
 
             }
             else {
-              echo "Wrong deal ID!";
+              echo "<script>alert(\"Wrong deal ID!\")</script>";
             }
           }
         //   if($row['status']=='Requested'){
@@ -190,7 +202,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
         // }
         }
     else {
-      echo 'Please enter all the information!';
+      echo "<script>alert(\"Please enter all the information!\")</script>";
     }
   }
 }
