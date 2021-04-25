@@ -10,7 +10,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
 
     $deal_id = $_POST['deal_id'];
     $deal_status_init = $_POST['deal_status'];
-    $deal_status = $_POST['subcategory'];
+    if($deal_status_init = 'ACTIVE'){
+      $deal_status = $_POST['subcategory'];
+    }
     $partner_email = $_SESSION['partner_email'];
     $partner_organization = $_SESSION['partner_organization'];
 
@@ -43,16 +45,16 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                  $result_check_query = mysqli_query($con, $check_query);
                  $row = mysqli_num_rows($result_check_query);
                  if($row == 1){
-                     //approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
-                     //approval_req_partner($deal_id);
+                   approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                   approval_req_partner($partner_email, $deal_id);
                      echo "Deal has been updated";
+                     echo '<script>alert("You tried to change a requested deal. Please wait till it is approved.\nClick OK. ")</script>';
                   }
                   else{
                     echo "Error has occured!";
                   }
 
-                 approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                 approval_req_partner($partner_email, $deal_id);
+
 
                 }
                 else{
@@ -68,6 +70,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                     deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
                     deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
                     echo "Deal has been updated";
+                    echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
                   }
                   else{
                     echo "Error has occured!";
@@ -84,8 +87,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 $result_check_query = mysqli_query($con, $check_query);
                 $row = mysqli_num_rows($result_check_query);
                 if($row == 1){
-                  deal_inactivated($partner_name, $deal_id, $partner_organization);
+                  deal_inactivated($partner_email, $deal_id, $partner_organization);
                   echo "Deal has been updated";
+                  echo '<script>alert("Thank you for updating the status. Deal has been inactivated.\nClick OK. ")</script>';
                 }
                 else {
                   echo "Error has occured!";
@@ -118,6 +122,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                    approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
                    approval_req_partner($deal_id);
                    echo "Deal has been updated";
+                   echo '<script>alert("You tried to change a requested deal. Please wait till it is approved.\nClick OK. ")</script>';
+
                  }
                  else{
                    echo "Error has occured";
@@ -138,6 +144,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                     deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
                     deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
                     echo "Deal has been updated";
+                    echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
                   }
                   else {
                     echo "Error has occured";
@@ -162,8 +169,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                 $result_check_query = mysqli_query($con, $check_query);
                 $row = mysqli_num_rows($result_check_query);
                 if($row == 1){
-                  deal_inactivated($partner_name, $deal_id, $partner_organization);
+                  deal_inactivated($partner_email, $deal_id, $partner_organization);
                   echo "Deal has been updated";
+                  echo '<script>alert("Thank you for updating the status. Deal has been inactivated.\nClick OK. ")</script>';
                 }
                 else {
                   echo "Error has occured!";
@@ -174,6 +182,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
               echo "Wrong deal ID!";
             }
           }
+        //   if($row['status']=='Requested'){
+        //     echo sorry();
+        //   }
+        // else{
+        //   echo thanks();
+        // }
         }
     else {
       echo 'Please enter all the information!';
@@ -839,12 +853,8 @@ justify-content: center;
                                    </div>
 
               <br><br>
-              <input id="button" onclick = myFunction() type="submit" name="" value="Update Record"><br><br>
-              <script>
-              function myFunction() {
-                alert("Thank you for updating the status. You will be notified soon.\nClick OK. ");
-              }
-              </script>
+              <input id="button" type="submit" name="" value="Update Record"><br><br>
+
             </form>
 
 
@@ -958,6 +968,9 @@ justify-content: center;
 </div>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
+
+
+
 
    </body>
  </html>

@@ -201,7 +201,7 @@ function deal_status_changed_partner($partner_name, $deal_id, $partner_organizat
   }
 }
 
-function deal_inactivated($partner_name, $deal_id, $partner_organization){
+function deal_inactivated($partner_email, $deal_id, $partner_organization){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";
@@ -218,10 +218,10 @@ function deal_inactivated($partner_name, $deal_id, $partner_organization){
     'verify_peer_name'=>false,
     'allow_self_signed'=>false
   ));
-  $mail ->addAddress("hassankhan825@gmail.com");
+  $mail ->addAddress($partner_email);
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Inactivated";
-  $html = "<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table>";
+  $html = "<table><tr><td>User Name:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
