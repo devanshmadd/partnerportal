@@ -482,9 +482,18 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                <thead>
                  <tr>
                    <th><span>Deal ID</span></th>
+                   <th><span>Partner organisation</span></th>
                    <th><span>Partner Name</span></th>
-                   <th><span>Client Name</span></th>
-                   <th><span>Client Number</span></th>
+                   <th><span>Partner Email</span></th>
+                   <th><span>Customer Name</span></th>
+                   <th><span>Implementation Preference</span></th>
+                   <th><span>Number of end users</span></th>
+                   <th><span>Expected Closure</span></th>
+                   <th><span>Require Budgeted</span></th>
+                   <th><span>Decision Maker</span></th>
+                   <th><span>Designation</span></th>
+                   <th><span>Email</span></th>
+                   <th><span>Phone number</span></th>
                    <th><span>Deal Status</span></th>
                    <th><span>Deal Date</span></th>
                    <th><span>Deal Expiry</span></th>
@@ -503,7 +512,7 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                    }
                    else {
                      while($row = mysqli_fetch_assoc($result)) {
-                       echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
+                       echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_organization"]."</td><td>".$row["partner_name"]."</td><td>".$row["partner_email"]."</td><td>".$row["name_customer"]."</td><td>".$row["number_end_users"]."</td><td>".$row["expected_closure"]."</td><td>".$row["req_bud"]."</td><td>".$row["name_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["email_decision_maker"]."</td><td>".$row["phone_decision_maker"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
                      }
                    }
                  echo "</tbody> </table>";
