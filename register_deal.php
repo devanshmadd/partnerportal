@@ -6,16 +6,28 @@ include("functions.php");
 
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
-  $partner_name = $_POST['partner_name'];
-  $partner_email = $_POST['partner_email'];
-  $partner_phone = $_POST['partner_phone'];
-  $partner_organization = $_POST['partner_organization'];
-  $client_name = $_POST['client_name'];
-  $client_email = $_POST['client_email'];
-  $client_phone = $_POST['client_phone'];
-  $deal_status = $_POST['deal_status'];
+  // $partner_name = $_POST['partner_name'];
+  // $partner_email = $_POST['partner_email'];
+  // $partner_phone = $_POST['partner_phone'];
+  // $partner_organization = $_POST['partner_organization'];
+  // $client_name = $_POST['client_name'];
+  // $client_email = $_POST['client_email'];
+  // $client_phone = $_POST['client_phone'];
+  // $deal_status = $_POST['deal_status'];
   // $deal_date = $_POST['deal_date'];
   // $deal_days = $_POST['days_active'];
+  $partner_name = $_POST['partner_name'];
+  $partner_organization = $_POST['partner_organization'];
+  $partner_email = $_POST['partner_email'];
+  $name_customer = $_POST['name_customer'];
+  $implementation_preference = $_POST['implementation_preference'];
+  $number_end_users = $_POST['number_end_users'];
+  $expected_closure = $_POST['expected_closure'];
+  $req_bud = $_POST['req_bud'];
+  $name_decision_maker = $_POST['name_decision_maker'];
+  $designation_decision_maker = $_POST['designation_decision_maker'];
+  $email_decision_maker = $_POST['email_decision_maker'];
+  $phone_decision_maker = $_POST['phone_decision_maker'];
 
 
   if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($partner_phone) && !empty($partner_organization) && !empty($client_name) && !empty($client_email) && !empty($client_phone))
@@ -96,7 +108,7 @@ error_reporting(E_ALL);
     -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);
   }
   #box{
-    border-radius: 10px;
+    border-radius: 0px;
     max-height: 95%;
     margin: auto;
     width: 35%;
@@ -108,6 +120,9 @@ error_reporting(E_ALL);
     overflow: auto;
   }
 
+  #box form{
+    max-height: 90%;
+  }
 
   .deal_status{
     width: 25%;
@@ -549,34 +564,31 @@ error_reporting(E_ALL);
         echo $_SESSION['partner_email'];
         ?>"readonly>
         <br><br>
-        <!-- <input id="text" type="text" name="partner_phone" placeholder="Partner Phone"><br><br>
-        <input id="text" type="text" name="client_name" placeholder="Client Name"><br><br>
-        <input id="text" type="text" name="client_email" placeholder="Client Email"><br><br>
-        <input id="text" type="text" name="client_phone" placeholder="Client Phone"><br><br> -->
+
         <input id="text" type="text" name="name_customer" placeholder="Name of Customer"><br><br>
-        <label for="implementation_preference" style="color: black;">Preferred Implementation</label>
+        <label for="implementation_preference" style="color: black;">Preferred Implementation:</label>
         <select class= 'implementation_preference' name="implementation_preference">
           <option value="on-premise">On-Premise</option>
           <option value="cloud">Cloud</option>
         </select> <br><br>
         <input id="text" type="number" name="number_end_users" placeholder="Number of End Users"><br><br>
-        <label for="expected_closure" style="color: black;">Expected Quarter/ Date of Closure</label>
+        <label for="expected_closure" style="color: black;">Expected Quarter/ Date of Closure:</label>
         <select class= 'expected_closure' name="expected_closure">
           <option value="jan-mar">Januray-February-March</option>
           <option value="apr-jun">April-May-June</option>
           <option value="jul-sept">July-August-September</option>
           <option value="oct-dec">October-November-December</option>
         </select> <br><br>
-        <label for="req-bud" style="color: black;">Requirement Budgeted</label>
-        <select class= 'req-bud' name="req-bud">
+        <label for="req_bud" style="color: black;">Requirement Budgeted:</label>
+        <select class= 'req_bud' name="req_bud">
           <option value="yes">Yes</option>
           <option value="no">No</option>
         </select> <br><br>
         <input id="text" type="text" name="name_decision_maker" placeholder="Name of Decision Maker"><br><br>
         <input id="text" type="text" name="designation_decision_maker" placeholder="Designation of Decision Maker"><br><br>
-        <input id="text" type="text" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
-        <input id="text" type="text" name="Phone_decision_maker" placeholder="Phone Number of Decision Maker"><br><br>
-        <label for="deal_stauts" style="color: black;">Deal Status</label>
+        <input id="text" type="email" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
+        <input id="text" type="tel" name="phone_decision_maker" placeholder="Phone Number of Decision Maker (+123 12345678...)"><br><br>
+        <label for="deal_status" style="color: black;">Deal Status:</label>
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
         </select> <br><br>
