@@ -14,6 +14,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $partner_password = $_POST['partner_password'];
   $partner_priv = $_POST['partner_priv'];
   $partner_organization = $_POST['partner_organization'];
+  $user_name = $_POST['user_name'];
   $hashed_pass = password_hash($partner_password, PASSWORD_BCRYPT);
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
@@ -44,11 +45,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   }
   else {
 
-    if(!empty($partner_email) && !empty($partner_password) && !empty($partner_priv) && !empty($partner_organization))
+    if(!empty($user_name) && !empty($partner_email) && !empty($partner_password) && !empty($partner_priv) && !empty($partner_organization))
     {
       //saving to database
       //$deal_id = random_num(6);
-      $query = "INSERT INTO user_creds (partner_organization, partner_email, partner_password, partner_priv) VALUES ('$partner_organization', '$partner_email', '$hashed_pass', '$partner_priv')";
+      $query = "INSERT INTO user_creds (user_name, partner_organization, partner_email, partner_password, partner_priv,signup_date) VALUES ('$user_name','$partner_organization', '$partner_email', '$hashed_pass', '$partner_priv',CURDATE())";
       mysqli_query($con, $query);
       $check_query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
       $result_check_query = mysqli_query($con, $check_query);
@@ -271,6 +272,7 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
     <div id="box">
       <form  method="post">
         <div class= 'form-heading'>Sign up the Partner!</div>
+        <input id="text" type="text" name="user_name" value="" placeholder="Name"><br><br>
         <input id="text" type="text" name="partner_organization" value="" placeholder="organization"><br><br>
         <input id="text" type="text" name="partner_email" value="" placeholder="username"><br><br>
         <input id="text" type="password" name="partner_password" value="" placeholder="password"><br><br>

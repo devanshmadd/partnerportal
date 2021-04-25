@@ -201,7 +201,7 @@ function deal_status_changed_partner($partner_name, $deal_id, $partner_organizat
   }
 }
 
-function deal_inactivated($partner_email, $deal_id, $partner_organization){
+function deal_inactivated($partner_email, $deal_id, $partner_organization,$deal_status){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";
