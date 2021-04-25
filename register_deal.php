@@ -172,7 +172,7 @@ error_reporting(E_ALL);
     display: flex;
     max-width: 100%;
     margin: auto;
-    min-height: 90vh;
+    min-height: 100%;
     justify-content: space-around;
     background: linear-gradient(180deg, #DBDBDB, #EAEAEA);
     background-image: url("qbkls.png");
@@ -537,6 +537,7 @@ error_reporting(E_ALL);
   </nav>
 
   <div class="containerr">
+
     <div id="box">
       <form method="post">
         <div class='register'>Register a deal!</div>
@@ -548,10 +549,33 @@ error_reporting(E_ALL);
         echo $_SESSION['partner_email'];
         ?>"readonly>
         <br><br>
-        <input id="text" type="text" name="partner_phone" placeholder="Partner Phone"><br><br>
+        <!-- <input id="text" type="text" name="partner_phone" placeholder="Partner Phone"><br><br>
         <input id="text" type="text" name="client_name" placeholder="Client Name"><br><br>
         <input id="text" type="text" name="client_email" placeholder="Client Email"><br><br>
-        <input id="text" type="text" name="client_phone" placeholder="Client Phone"><br><br>
+        <input id="text" type="text" name="client_phone" placeholder="Client Phone"><br><br> -->
+        <input id="text" type="text" name="name_customer" placeholder="Name of Customer"><br><br>
+        <label for="implementation_preference" style="color: black;">Preferred Implementation</label>
+        <select class= 'implementation_preference' name="implementation_preference">
+          <option value="on-premise">On-Premise</option>
+          <option value="cloud">Cloud</option>
+        </select> <br><br>
+        <input id="text" type="number" name="number_end_users" placeholder="Number of End Users"><br><br>
+        <label for="expected_closure" style="color: black;">Expected Quarter/ Date of Closure</label>
+        <select class= 'expected_closure' name="expected_closure">
+          <option value="jan-mar">Januray-February-March</option>
+          <option value="apr-jun">April-May-June</option>
+          <option value="jul-sept">July-August-September</option>
+          <option value="oct-dec">October-November-December</option>
+        </select> <br><br>
+        <label for="req-bud" style="color: black;">Requirement Budgeted</label>
+        <select class= 'req-bud' name="req-bud">
+          <option value="yes">Yes</option>
+          <option value="no">No</option>
+        </select> <br><br>
+        <input id="text" type="text" name="name_decision_maker" placeholder="Name of Decision Maker"><br><br>
+        <input id="text" type="text" name="designation_decision_maker" placeholder="Designation of Decision Maker"><br><br>
+        <input id="text" type="text" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
+        <input id="text" type="text" name="Phone_decision_maker" placeholder="Phone Number of Decision Maker"><br><br>
         <label for="deal_stauts" style="color: black;">Deal Status</label>
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
@@ -567,6 +591,7 @@ function myFunction() {
         <a href="change_status.php">Change deal status</a>
       </form>
     </div>
+
 
     <div id="records">
       <h2>Your current records are:</h2>

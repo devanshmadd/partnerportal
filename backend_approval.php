@@ -209,7 +209,7 @@ error_reporting(E_ALL);
           display: flex;
           flex-direction: column;
           align-items: center;
-          max-width: 75%;
+          max-width: 70%;
           background: #fff;
           padding: 10px 17px;
           -webkit-box-shadow: 2px 2px 3px -1px rgba(0,0,0,0.35);

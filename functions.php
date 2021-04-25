@@ -39,7 +39,7 @@ function new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail ->Subject="New Deal Registered, Pending Approval";
-  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"https://localhost/frompartnerportal/backend_approval.php\"> this link</a> </p>";
+  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   $mail -> SMTPOptions = array('ssl'=>array(
     'verify_peer'=>false,
@@ -107,7 +107,7 @@ function approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   //$mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Approval Requested";
-  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -164,7 +164,7 @@ function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organiza
   ));
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Status Changed, Update Expiry";
-  $html = "$partner_name has changed the deal status for the following deal: <table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status changed to: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html = "$partner_name has changed the deal status for the following deal: <table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status changed to: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
