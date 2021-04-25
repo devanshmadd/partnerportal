@@ -23,6 +23,69 @@ function check_login($con)
     }
 }
 
+
+function signup_galaxkey($partner_organization, $user_name, $partner_email, $partner_password){
+
+  $mail = new PHPMailer(true);
+  $mail ->isSMTP();
+  $mail ->Host="smtp.outlook.com";
+  $mail ->Port=587;
+  $mail ->SMTPSecure="tls";
+  $mail ->SMTPAuth = true;
+  $mail ->Username = "technical.executive.mea@galaxkey.com";
+  $mail ->Password = "Apple_dummy_123";
+  $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+  $mail -> addAddress("business.executive.mea@galaxkey.com");
+  $mail ->IsHTML(true);
+  $mail ->IsHTML(true);
+  $mail -> SMTPOptions = array('ssl'=>array(
+    'verify_peer'=>false,
+    'verify_peer_name'=>false,
+    'allow_self_signed'=>false
+  ));
+  $mail ->Subject="Partner Signed up";
+  $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>User Name:</td><td>$user_name</td><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
+  $mail ->Body=$html;
+  if($mail->send()){
+    echo "Mail Sent";
+  }else{
+    echo "error occured";
+  }
+
+}
+
+
+function signup_partner($partner_organization, $user_name, $partner_email, $partner_password){
+
+  $mail = new PHPMailer(true);
+  $mail ->isSMTP();
+  $mail ->Host="smtp.outlook.com";
+  $mail ->Port=587;
+  $mail ->SMTPSecure="tls";
+  $mail ->SMTPAuth = true;
+  $mail ->Username = "technical.executive.mea@galaxkey.com";
+  $mail ->Password = "Apple_dummy_123";
+  $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+  $mail -> addAddress($partner_email);
+  $mail ->IsHTML(true);
+  $mail ->IsHTML(true);
+  $mail -> SMTPOptions = array('ssl'=>array(
+    'verify_peer'=>false,
+    'verify_peer_name'=>false,
+    'allow_self_signed'=>false
+  ));
+
+  $mail ->Subject="Partner Signed up";
+  $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>User Name:</td><td>$user_name</td><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table><br><p>Please upload your documents within 14 days by clicking <a href=\"http://localhost/from_Git/partnerportal/upload_docs.php\">this link</a></p>";
+  $mail ->Body=$html;
+  if($mail->send()){
+    echo "Mail Sent";
+  }else{
+    echo "error occured";
+  }
+}
+
+
 function new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_organization)
 {
   $mail = new PHPMailer(true);

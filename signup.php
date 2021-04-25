@@ -16,27 +16,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $partner_organization = $_POST['partner_organization'];
   $user_name = $_POST['user_name'];
   $hashed_pass = password_hash($partner_password, PASSWORD_BCRYPT);
-  $mail = new PHPMailer(true);
-  $mail ->isSMTP();
-  $mail ->Host="smtp.outlook.com";
-  $mail ->Port=587;
-  $mail ->SMTPSecure="tls";
-  $mail ->SMTPAuth = true;
-  $mail ->Username = "technical.executive.mea@galaxkey.com";
-  $mail ->Password = "Apple_dummy_123";
-  $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-  $mail ->addAddress("technical.executive.mea@galaxkey.com");
-  $mail -> addAddress("business.executive.mea@galaxkey.com");
-  //$mail ->addAddress("hassankhan825@gmail.com");
-  $mail -> addAddress($partner_email);
-  $mail ->IsHTML(true);
-  $mail ->IsHTML(true);
-  $mail -> SMTPOptions = array('ssl'=>array(
-    'verify_peer'=>false,
-    'verify_peer_name'=>false,
-    'allow_self_signed'=>false
-  ));
-
   $query = "SELECT * FROM user_creds WHERE partner_email = '$partner_email'";
   $result = mysqli_query($con, $query);
   if($result && mysqli_num_rows($result)>0)
@@ -55,15 +34,10 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $result_check_query = mysqli_query($con, $check_query);
       if($result_check_query && mysqli_num_rows($result_check_query)>0)
       {
-        $mail ->Subject="Partner Signed up";
-        $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table>";
-        $mail ->Body=$html;
-        if($mail->send()){
-          echo "Mail Sent";
-        }else{
-          echo "error occured";
-        }
-      header("Location: login.php");
+        echo "before sending mail";
+        signup_partner($partner_organization, $user_name, $partner_email, $partner_password);
+        signup_galaxkey($partner_organization, $user_name, $partner_email, $partner_password);
+        echo "afte sending mail";
       }
     }
       else {
