@@ -39,6 +39,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $deal_id = random_num(6);
     $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, name_customer, implementation_preference, number_end_users, expected_closure, req_bud, name_decision_maker, designation_decision_maker, email_decision_maker, phone_decision_maker, status, deal_date, expiry_date) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$name_customer', '$implementation_preference', '$number_end_users', '$expected_closure', '$req_bud', '$name_decision_maker', '$designation_decision_maker', '$email_decision_maker', '$phone_decision_maker', '$deal_status',CURDATE(),NULL)";
     mysqli_query($con, $query);  //Saving all the data to database
+
+
     $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND partner_organization = '$partner_organization';";
     $result_check_query = mysqli_query($con, $check_query);
     $row = mysqli_num_rows($result_check_query);
@@ -591,7 +593,6 @@ error_reporting(E_ALL);
         <input id="text" type="email" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
         <input id="text" type="tel" name="phone_decision_maker" placeholder="Phone Number of Decision Maker (+123 12345678...)"><br><br>
         <label for="deal_status" style="color: black;">Deal Status:</label>
-
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
         </select> <br><br>
@@ -653,7 +654,7 @@ function myFunction() {
             else {
 
               while($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
+                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
               }
 
             }
