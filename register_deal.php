@@ -591,6 +591,7 @@ error_reporting(E_ALL);
         <input id="text" type="email" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
         <input id="text" type="tel" name="phone_decision_maker" placeholder="Phone Number of Decision Maker (+123 12345678...)"><br><br>
         <label for="deal_status" style="color: black;">Deal Status:</label>
+
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
         </select> <br><br>

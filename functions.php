@@ -34,12 +34,16 @@ function new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_
   $mail ->Username = "technical.executive.mea@galaxkey.com";
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-  $mail ->addAddress("devansh.madd99@gmail.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->addAddress("business.executive.mea@galaxkey.com");
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail ->Subject="New Deal Registered, Pending Approval";
+<<<<<<< Updated upstream
   $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
+=======
+  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"https://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
+>>>>>>> Stashed changes
   $mail ->Body=$html;
   $mail -> SMTPOptions = array('ssl'=>array(
     'verify_peer'=>false,
@@ -65,7 +69,7 @@ function new_deal_reg_partner($partner_email, $partner_name, $deal_id, $partner_
   $mail ->Username = "technical.executive.mea@galaxkey.com";
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-  $mail ->addAddress("devansh.madd99@gmail.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->addAddress($partner_email);
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);

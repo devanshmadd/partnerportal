@@ -47,7 +47,7 @@ else {
     $html="<table><tr><td>Name:</td><td>$partner_name</td></tr><tr><td>Organization: </td><td>$partner_organization</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Client: </td><td>$client_organization</td><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
     $mail ->Body=$html;
     $mail ->addAddress($partner_email);
-    $mail ->addAddress("devansh.madd99@gmail.com");
+    $mail ->addAddress("technical.executive.mea@galaxkey.com");
     if($mail->send()){
      echo "Partner has been sent a mail to update the deal.\n";
     }else{
@@ -98,7 +98,7 @@ else {
     echo $partner_email1 . " " . $partner_organization1 . " " . $client_organization1 . " " . $deal_id1 . " " . $deal_date1 . "\n";
     $html="<p>Please update deal pending request with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name1</td></tr><tr><td>Organization: </td><td>$partner_organization1</td></tr><tr><td>Deal ID:</td><td>$deal_id1</td></tr><tr><td>Client: </td><td>$client_organization1</td></tr><tr><td>Deal Status: </td><td>Pending Approval</td></tr></table>";
     $req_pending_mail ->Body=$html;
-    $req_pending_mail ->addAddress("devansh.madd99@gmail.com");
+    $req_pending_mail ->addAddress("technical.executive.mea@galaxkey.com");
     $req_pending_mail ->addAddress("business.executive.mea@galaxkey.com");
       if($req_pending_mail->send()){
         echo "\nUpdate notification sent to Galaxkey\n";
@@ -153,7 +153,7 @@ else {
       echo $partner_email2 . " " . $partner_organization2 . " " . $client_organization2 . " " . $deal_id2 . " " . $deal_date2 . "\n";
       $html="<p>Due to no further updates, deal status have been set to INACTIVE for the deals with the following details:</p><br><br><table><tr><td>User Name:</td><td>$partner_name2</td></tr><tr><td>Organization: </td><td>$partner_organization2</td></tr><tr><td>Deal ID:</td><td>$deal_id2</td><tr><td>Client: </td><td>$client_organization2</td></tr><tr><td>Deal Status: </td><td>Set to Inactive.</td></tr></table>";
       $inactive_mail ->Body=$html;
-      $inactive_mail ->addAddress("devansh.madd99@gmail.com");
+      $inactive_mail ->addAddress("technical.executive.mea@galaxkey.com");
       $inactive_mail ->addAddress("business.executive.mea@galaxkey.com");
       $inactive_mail ->addAddress($partner_email2);
         if($inactive_mail->send()){
