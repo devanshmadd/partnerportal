@@ -24,7 +24,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $mail ->Username = "technical.executive.mea@galaxkey.com";
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-  $mail ->addAddress("devansh.madd99@gmail.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail -> addAddress("business.executive.mea@galaxkey.com");
   //$mail ->addAddress("hassankhan825@gmail.com");
   $mail -> addAddress($partner_email);

@@ -575,7 +575,7 @@ error_reporting(E_ALL);
         <input id="text" type="text" name="name_decision_maker" placeholder="Name of Decision Maker"><br><br>
         <input id="text" type="text" name="designation_decision_maker" placeholder="Designation of Decision Maker"><br><br>
         <input id="text" type="text" name="email_decision_maker" placeholder="Email of Decision Maker"><br><br>
-        <input id="text" type="text" name="Phone_decision_maker" placeholder="Phone Number of Decision Maker"><br><br>
+        <input id="text" type="text" name="phone_decision_maker" placeholder="Phone Number of Decision Maker"><br><br>
         <label for="deal_stauts" style="color: black;">Deal Status</label>
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
