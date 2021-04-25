@@ -13,7 +13,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   // $client_name = $_POST['client_name'];
   // $client_email = $_POST['client_email'];
   // $client_phone = $_POST['client_phone'];
-  // $deal_status = $_POST['deal_status'];
+  //
   // $deal_date = $_POST['deal_date'];
   // $deal_days = $_POST['days_active'];
   $partner_name = $_POST['partner_name'];
@@ -28,15 +28,17 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $designation_decision_maker = $_POST['designation_decision_maker'];
   $email_decision_maker = $_POST['email_decision_maker'];
   $phone_decision_maker = $_POST['phone_decision_maker'];
+  $deal_status = $_POST['deal_status'];
+
+  echo $partner_name, $partner_email, $partner_organization, $name_customer, $implementation_preference, $number_end_users, $expected_closure, $req_bud, $name_decision_maker, $designation_decision_maker, $email_decision_maker, $phone_decision_maker, $deal_status;
 
 
-  if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($partner_phone) && !empty($partner_organization) && !empty($client_name) && !empty($client_email) && !empty($client_phone))
+  if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($name_customer) && !empty($implementation_preference) && !empty($number_end_users) && !empty($expected_closure) && !empty($req_bud) && !empty($name_decision_maker) && !empty($designation_decision_maker) && !empty($email_decision_maker) && !empty($phone_decision_maker) && !empty($deal_status))
   {
     //saving to database
     $deal_id = random_num(6);
-    $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, partner_phone, client_name, client_email, client_phone, status, deal_date, expiry_date) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$partner_phone', '$client_name', '$client_email', '$client_phone', '$deal_status',CURDATE(),NULL) ";
+    $query = "INSERT INTO deals (deal_id, partner_organization, partner_name, partner_email, name_customer, implementation_preference, number_end_users, expected_closure, req_bud, name_decision_maker, designation_decision_maker, email_decision_maker, phone_decision_maker, status, deal_date, expiry_date) VALUES ('$deal_id', '$partner_organization', '$partner_name', '$partner_email', '$name_customer', '$implementation_preference', '$number_end_users', '$expected_closure', '$req_bud', '$name_decision_maker', '$designation_decision_maker', '$email_decision_maker', '$phone_decision_maker', '$deal_status',CURDATE(),NULL)";
     mysqli_query($con, $query);  //Saving all the data to database
-
     $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND partner_organization = '$partner_organization';";
     $result_check_query = mysqli_query($con, $check_query);
     $row = mysqli_num_rows($result_check_query);
@@ -568,21 +570,21 @@ error_reporting(E_ALL);
         <input id="text" type="text" name="name_customer" placeholder="Name of Customer"><br><br>
         <label for="implementation_preference" style="color: black;">Preferred Implementation:</label>
         <select class= 'implementation_preference' name="implementation_preference">
-          <option value="on-premise">On-Premise</option>
-          <option value="cloud">Cloud</option>
+          <option value="On-premise">On-Premise</option>
+          <option value="Cloud">Cloud</option>
         </select> <br><br>
         <input id="text" type="number" name="number_end_users" placeholder="Number of End Users"><br><br>
         <label for="expected_closure" style="color: black;">Expected Quarter/ Date of Closure:</label>
         <select class= 'expected_closure' name="expected_closure">
-          <option value="jan-mar">Januray-February-March</option>
-          <option value="apr-jun">April-May-June</option>
-          <option value="jul-sept">July-August-September</option>
-          <option value="oct-dec">October-November-December</option>
+          <option value="January-February-March">Januray-February-March</option>
+          <option value="April-May-June">April-May-June</option>
+          <option value="July-August-September">July-August-September</option>
+          <option value="October-November-December">October-November-December</option>
         </select> <br><br>
         <label for="req_bud" style="color: black;">Requirement Budgeted:</label>
         <select class= 'req_bud' name="req_bud">
-          <option value="yes">Yes</option>
-          <option value="no">No</option>
+          <option value="Yes">Yes</option>
+          <option value="No">No</option>
         </select> <br><br>
         <input id="text" type="text" name="name_decision_maker" placeholder="Name of Decision Maker"><br><br>
         <input id="text" type="text" name="designation_decision_maker" placeholder="Designation of Decision Maker"><br><br>
@@ -636,7 +638,7 @@ function myFunction() {
             else {
 
               while($row = mysqli_fetch_assoc($result)) {
-                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['client_name']."</td><td>".$row["client_phone"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
+                echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_name"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
               }
             }
           }
