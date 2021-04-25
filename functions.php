@@ -36,6 +36,7 @@ function signup_galaxkey($partner_organization, $user_name, $partner_email, $par
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
   $mail -> addAddress("business.executive.mea@galaxkey.com");
+  $mail -> addAddress("technical.executive.mea@galaxkey.com");
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail -> SMTPOptions = array('ssl'=>array(

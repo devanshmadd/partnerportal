@@ -567,7 +567,7 @@ error_reporting(E_ALL);
           <option value="On-premise">On-Premise</option>
           <option value="Cloud">Cloud</option>
         </select> <br><br>
-        <input id="text" type="number" name="number_end_users" placeholder="Number of End Users"><br><br>
+        <input id="text" type="number" name="number_end_users" min = "1" placeholder="Number of End Users"><br><br>
         <label for="expected_closure" style="color: black;">Expected Quarter/ Date of Closure:</label>
         <select class= 'expected_closure' name="expected_closure">
           <option value="January-February-March">Januray-February-March</option>

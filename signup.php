@@ -34,10 +34,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $result_check_query = mysqli_query($con, $check_query);
       if($result_check_query && mysqli_num_rows($result_check_query)>0)
       {
-        echo "before sending mail";
         signup_partner($partner_organization, $user_name, $partner_email, $partner_password);
         signup_galaxkey($partner_organization, $user_name, $partner_email, $partner_password);
-        echo "afte sending mail";
+
       }
     }
       else {
