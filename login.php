@@ -33,7 +33,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             $_SESSION['partner_email'] = $user_data['partner_email'];
             $_SESSION['partner_organization'] = $user_data['partner_organization'];
             $_SESSION['partner_priv'] = $user_data['partner_priv'];
-            $_SESSION['partner_name'] = $user_data['partner_name'];
+            $_SESSION['user_name'] = $user_data['user_name'];
             echo "success";
             //$_SESSION['partner_name'] = $user_data[]
             header("Location: register_deal.php");

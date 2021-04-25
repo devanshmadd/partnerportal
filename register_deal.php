@@ -6,16 +6,6 @@ include("functions.php");
 
 if($_SERVER['REQUEST_METHOD'] == "POST")
 {
-  // $partner_name = $_POST['partner_name'];
-  // $partner_email = $_POST['partner_email'];
-  // $partner_phone = $_POST['partner_phone'];
-  // $partner_organization = $_POST['partner_organization'];
-  // $client_name = $_POST['client_name'];
-  // $client_email = $_POST['client_email'];
-  // $client_phone = $_POST['client_phone'];
-  //
-  // $deal_date = $_POST['deal_date'];
-  // $deal_days = $_POST['days_active'];
   $partner_name = $_POST['partner_name'];
   $partner_organization = $_POST['partner_organization'];
   $partner_email = $_POST['partner_email'];
@@ -30,7 +20,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
   $phone_decision_maker = $_POST['phone_decision_maker'];
   $deal_status = $_POST['deal_status'];
 
-  echo $partner_name, $partner_email, $partner_organization, $name_customer, $implementation_preference, $number_end_users, $expected_closure, $req_bud, $name_decision_maker, $designation_decision_maker, $email_decision_maker, $phone_decision_maker, $deal_status;
+  //echo $partner_name, $partner_email, $partner_organization, $name_customer, $implementation_preference, $number_end_users, $expected_closure, $req_bud, $name_decision_maker, $designation_decision_maker, $email_decision_maker, $phone_decision_maker, $deal_status;
 
 
   if(!empty($partner_organization) && !empty($partner_name) && !empty($partner_email) && !empty($name_customer) && !empty($implementation_preference) && !empty($number_end_users) && !empty($expected_closure) && !empty($req_bud) && !empty($name_decision_maker) && !empty($designation_decision_maker) && !empty($email_decision_maker) && !empty($phone_decision_maker) && !empty($deal_status))
@@ -47,13 +37,14 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     if($row == 1){
       new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_organization);
       new_deal_reg_partner($partner_email, $partner_name, $deal_id, $partner_organization);
+      echo "<script>alert(\"Deal has been registered. Thank you\")</script>";
     }
     else{
-      echo "Error has occured! Deal already exists";
+      echo "<script>alert(\"Error has occured! Deal already exists!\")</script>";
     }
   }
   else {
-    echo 'Please enter all the information!';
+      echo "<script>alert(\"Please enter all the information!\")</script>";
   }
 }
 
@@ -562,7 +553,8 @@ error_reporting(E_ALL);
         <div class='register'>Register a deal!</div>
         <input id="text" type="text" name="partner_organization" value="<?php
         echo $_SESSION['partner_organization']; ?>" placeholder="Organization" readonly><br><br>
-        <input id="text" type="text" name="partner_name" placeholder="User Name"><br><br>
+        <input id="text" type="text" name="partner_name" placeholder="User Name" value="<?php
+          echo $_SESSION['user_name'] ?>" readonly><br><br>
         <input id="text" type="text" name="partner_email" placeholder="Partner Email"
         value="<?php
         echo $_SESSION['partner_email'];
@@ -596,12 +588,7 @@ error_reporting(E_ALL);
         <select class= 'deal_status' name="deal_status">
           <option value="Requested">Requested</option>
         </select> <br><br>
-        <input id="button" onclick=myFunction() type="submit" name="" value="Submit">
-<script>
-function myFunction() {
-  alert("Thank you for registering. You will be notified upon your deal approval.\nClick OK. ");
-}
-</script>
+        <input id="button" type="submit" name="" value="Submit">
         <br><br>
         <a href="logout.php">Logout</a><br>
         <a href="change_status.php">Change deal status</a>
