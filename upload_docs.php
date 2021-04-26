@@ -521,7 +521,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $result = mysqli_query($con, $record_query);
       while ($row = mysqli_fetch_assoc($result)) {
         $image = $row["image_url"];
-        echo "<iframe src=$image width=\"100%\" height=\"500px\"></iframe>";
+        echo "<p><b> document_title.pdf </b> </p>";
+        echo "<iframe src=$image title= \"document_title.pdf\" width=\"100%\" height=\"500px\"></iframe>";
       }
       ?>
 
