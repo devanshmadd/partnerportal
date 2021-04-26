@@ -27,7 +27,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $mail ->Username = "technical.executive.mea@galaxkey.com";
     $mail ->Password = "Apple_dummy_123";
     $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-    $mail ->addAddress("technical.executive.mea@galaxkey.com");
     $mail ->addAddress("business.executive.mea@galaxkey.com");
     $mail ->addAddress($partner_email);
     $mail ->IsHTML(true);
@@ -51,7 +50,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             if($deal_status_init == 'ACTIVE' && !empty($deal_status)){
               $update_query = "UPDATE deals SET status = '$deal_status', deal_date = CURDATE(), expiry_date = '$expiry_date' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
-              echo "Hogaya bey";
               $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status';";
               $result_check_query = mysqli_query($con, $check_query);
               $row = mysqli_num_rows($result_check_query);
@@ -73,7 +71,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
             elseif ($deal_status_init == "INACTIVE") {
               $update_query = "UPDATE deals SET status = '$deal_status_init' WHERE deal_id = '$deal_id';";
               mysqli_query($con, $update_query);
-              echo "Hogaya bey";
               $check_query = "SELECT * FROM deals WHERE deal_id = '$deal_id' AND partner_email = '$partner_email' AND status = '$deal_status_init';";
               $result_check_query = mysqli_query($con, $check_query);
               $row = mysqli_num_rows($result_check_query);

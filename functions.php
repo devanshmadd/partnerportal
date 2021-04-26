@@ -36,6 +36,7 @@ function signup_galaxkey($partner_organization, $user_name, $partner_email, $par
   $mail ->Password = "Apple_dummy_123";
   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
   $mail -> addAddress("business.executive.mea@galaxkey.com");
+  $mail -> addAddress("technical.executive.mea@galaxkey.com");
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail -> SMTPOptions = array('ssl'=>array(
@@ -76,7 +77,7 @@ function signup_partner($partner_organization, $user_name, $partner_email, $part
   ));
 
   $mail ->Subject="Partner Signed up";
-  $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>User Name:</td><td>$user_name</td><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table><br><p>Please upload your documents within 14 days by clicking <a href=\"http://localhost/from_Git/partnerportal/upload_docs.php\">this link</a></p>";
+  $html="<table><tr><td>Partner Organization:</td><td>$partner_organization</td></tr><tr><td>User Name:</td><td>$user_name</td><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>Password:</td><td>$partner_password</td></tr></table><br><p>Please upload your documents within 14 days by clicking <a href=\"http://localhost/partnerportal/upload_docs.php\">this link</a></p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -102,7 +103,7 @@ function new_deal_reg_galaxkey($partner_email, $partner_name,$deal_id, $partner_
   $mail ->IsHTML(true);
   $mail ->IsHTML(true);
   $mail ->Subject="New Deal Registered, Pending Approval";
-  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"http://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   $mail -> SMTPOptions = array('ssl'=>array(
     'verify_peer'=>false,
@@ -149,7 +150,7 @@ function new_deal_reg_partner($partner_email, $partner_name, $deal_id, $partner_
 }
 
 
-function approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status){
+function approval_req_galaxkey($partner_name, $partner_email, $deal_id, $partner_organization,$deal_status,$name_customer){
 
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
@@ -168,9 +169,9 @@ function approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$
     'allow_self_signed'=>false
   ));
   $mail ->addAddress("business.executive.mea@galaxkey.com");
-  //$mail ->addAddress("technical.executive.mea@galaxkey.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Approval Requested";
-  $html = "$partner_organization has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html = "$partner_name has requested for Deal Approval for: <br> <table><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><tr><td>Customer Name: </td><td>$name_customer</td><tr><td>Change Deal Status to: </td><td>$deal_status</td></tr></table><br><p>Please add the expiry date by clicking on:<a href=\"http://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -208,7 +209,7 @@ function approval_req_partner($partner_email, $deal_id){
   }
 }
 
-function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organization,$deal_status){
+function deal_status_changed_galaxkey($partner_email,$partner_name, $deal_id, $partner_organization,$deal_status){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";
@@ -226,8 +227,9 @@ function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organiza
     'allow_self_signed'=>false
   ));
   $mail ->addAddress("business.executive.mea@galaxkey.com");
+  $mail ->addAddress("technical.executive.mea@galaxkey.com");
   $mail ->Subject="Deal Status Changed, Update Expiry";
-  $html = "$partner_name has changed the deal status for the following deal: <table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status changed to: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date on:<a href=\"http://localhost/from_Git/partnerportal/backend_approval.php\"> this link</a> </p>";
+  $html = "$partner_name has changed the deal status for the following deal: <table><tr><td>Partner Email:</td><td>$partner_email</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status changed to: </td><td>$deal_status</td></tr></table><br><p>Please change expiry date on:<a href=\"http://localhost/partnerportal/backend_approval.php\"> this link</a> </p>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";
@@ -236,7 +238,7 @@ function deal_status_changed_galaxkey($partner_name, $deal_id, $partner_organiza
   }
 }
 
-function deal_status_changed_partner($partner_name, $deal_id, $partner_organization,$deal_status){
+function deal_status_changed_partner($partner_name, $deal_id,$deal_status,$name_customer,$partner_email){
   $mail = new PHPMailer(true);
   $mail ->isSMTP();
   $mail ->Host="smtp.outlook.com";
@@ -253,9 +255,9 @@ function deal_status_changed_partner($partner_name, $deal_id, $partner_organizat
     'verify_peer_name'=>false,
     'allow_self_signed'=>false
   ));
-  $mail ->addAddress("hassankhan825@gmail.com");
+  $mail ->addAddress($partner_email);
   $mail ->Subject="Deal Status Changed Successfully";
-  $html = "<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table>";
+  $html = "<table><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Customer Name: </td><td>$name_customer</td><tr><td>Deal Status: </td><td>$deal_status</td></tr></table>";
   $mail ->Body=$html;
   if($mail->send()){
     echo "Mail Sent";

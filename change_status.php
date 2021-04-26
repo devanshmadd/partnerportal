@@ -11,6 +11,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
     $deal_id = $_POST['deal_id'];
     $deal_status_init = $_POST['deal_status'];
     $partner_email = $_SESSION['partner_email'];
+    $partner_name = $_SESSION['user_name'];
     $partner_organization = $_SESSION['partner_organization'];
 
 
@@ -22,7 +23,9 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $deal_status_query = "SELECT * from deals WHERE deal_id = '$deal_id'";
       $deal_status_checker = mysqli_query($con, $deal_status_query);
 
+
       $row = mysqli_fetch_assoc($deal_status_checker);
+      $name_customer = $row["name_customer"];
       echo $row["status"];
 
 
@@ -44,7 +47,7 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                    $result_check_query = mysqli_query($con, $check_query);
                    $row = mysqli_num_rows($result_check_query);
                    if($row == 1){
-                     approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                     approval_req_galaxkey($partner_name, $partner_email, $deal_id, $partner_organization,$deal_status,$name_customer);
                      approval_req_partner($partner_email, $deal_id);
                        // echo "<script>alert(\"Deal has been updated\")</script>";
                        //echo '<script>alert(\" \")</script>';
@@ -67,8 +70,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                     echo $row;
                     echo $partner_email;
                     if($row == 1){
-                      deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                      deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+                      deal_status_changed_galaxkey($partner_email,$partner_name, $deal_id, $partner_organization,$deal_status);
+                      deal_status_changed_partner($partner_name, $deal_id,$deal_status,$name_customer,$partner_email);
                       // echo "<script>alert(\"Deal has been updated\")</script>";
                       echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
                     }
@@ -127,8 +130,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                    $result_check_query = mysqli_query($con, $check_query);
                    $row = mysqli_num_rows($result_check_query);
                    if($row == 1){
-                     approval_req_galaxkey($partner_email, $deal_id, $partner_organization);
-                     approval_req_partner($deal_id);
+                     approval_req_galaxkey($partner_name, $partner_email, $deal_id, $partner_organization,$deal_status,$name_customer);
+                     approval_req_partner($partner_email, $deal_id);
                      // echo "<script>alert(\"Deal has been updated\")</script>";
                      echo '<script>alert("You tried to change a requested/inactive deal. Please wait till it is approved.\nClick OK. ")</script>';
 
@@ -136,8 +139,11 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                    else{
                      echo "<script>alert(\"Error has occured!\")</script>";
                    }
+<<<<<<< HEAD
 
 
+=======
+>>>>>>> 1a56ed87a934352ba0a6bc71d43c001e587b2e01
                   }
                   else{
                     $update_query = "UPDATE deals SET status = '$deal_status' WHERE deal_id = '$deal_id';";
@@ -147,8 +153,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                     $result_check_query = mysqli_query($con, $check_query);
                     $row = mysqli_num_rows($result_check_query);
                     if($row == 1){
-                      deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization);
-                      deal_status_changed_partner($partner_email, $deal_id, $partner_organization);
+                      deal_status_changed_galaxkey($partner_email,$partner_name, $deal_id, $partner_organization,$deal_status);
+                      deal_status_changed_partner($partner_name, $deal_id,$deal_status,$name_customer,$partner_email);
                       // echo "<script>alert(\"Deal has been updated\")</script>";
                       echo '<script>alert("Thank you for updating the status. You will be notified soon.\nClick OK. ")</script>';
                     }
@@ -156,8 +162,12 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                       echo "<script>alert(\"Error has occured!\")</script>";
                     }
 
+<<<<<<< HEAD
                   ///  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
                   ///  deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+=======
+
+>>>>>>> 1a56ed87a934352ba0a6bc71d43c001e587b2e01
 
 
                   }

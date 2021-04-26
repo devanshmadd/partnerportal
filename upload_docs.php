@@ -34,34 +34,34 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
           //Insert into Database
           $query = "INSERT INTO kyc_docs (partner_organization, image_url, time_stamp) VALUES ('$partner_organization', '$img_upload_path', NOW())";
           mysqli_query($con, $query);
-          //   $mail = new PHPMailer(true);
-          //   $mail ->isSMTP();
-          //   $mail ->Host="smtp.outlook.com";
-          //   $mail ->Port=587;
-          //   $mail ->SMTPSecure="tls";
-          //   $mail ->SMTPAuth = true;
-          //   $mail ->Username = "technical.executive.mea@galaxkey.com";
-          //   $mail ->Password = "Apple_dummy_123";
-          //   $mail ->SetFrom("technical.executive.mea@galaxkey.com");
-          //   $mail ->addAddress("technical.executive.mea@galaxkey.com");
-          //   $mail ->addAddress("business.executive.mea@galaxkey.com");
-          //   $mail ->IsHTML(true);
-          //   $mail ->IsHTML(true);
-          //   $mail ->Subject="Document was uploaded";
-          //   $html="<table><tr><td>Email:</td><td>$partner_email</td></tr><tr><td>User Name:</td><td>$partner_name</td></tr><tr><td>Deal ID:</td><td>$deal_id</td><tr><td>Organization: </td><td>$partner_organization</td><tr><td>Deal Status:</td><td>Pending Approval</td></tr></table><p>Please add the expiry date by clicking on:<a href=\"https://localhost/frompartnerportal/backend_approval.php\"> this link</a> </p>";
-          //   $mail ->Body=$html;
-          //   $mail -> SMTPOptions = array('ssl'=>array(
-          //     'verify_peer'=>false,
-          //     'verify_peer_name'=>false,
-          //     'allow_self_signed'=>false
-          //   ));
-          //
-          //   if($mail->send()){
-          //     echo "Mail Sent";
-          //   }else{
-          //     echo "error occured";
-          //   }
-          // }
+            $mail = new PHPMailer(true);
+            $mail ->isSMTP();
+            $mail ->Host="smtp.outlook.com";
+            $mail ->Port=587;
+            $mail ->SMTPSecure="tls";
+            $mail ->SMTPAuth = true;
+            $mail ->Username = "technical.executive.mea@galaxkey.com";
+            $mail ->Password = "Apple_dummy_123";
+            $mail ->SetFrom("technical.executive.mea@galaxkey.com");
+            $mail ->addAddress("technical.executive.mea@galaxkey.com");
+            $mail ->addAddress("business.executive.mea@galaxkey.com");
+            $mail ->IsHTML(true);
+            $mail ->IsHTML(true);
+            $mail ->Subject="Document was uploaded";
+            $html="A document was uploaded by $partner_organization </p>";
+            $mail ->Body=$html;
+            $mail -> SMTPOptions = array('ssl'=>array(
+              'verify_peer'=>false,
+              'verify_peer_name'=>false,
+              'allow_self_signed'=>false
+            ));
+
+            if($mail->send()){
+              echo "Mail Sent";
+            }else{
+              echo "error occured";
+            }
+
 
         }
 
@@ -521,7 +521,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
       $result = mysqli_query($con, $record_query);
       while ($row = mysqli_fetch_assoc($result)) {
         $image = $row["image_url"];
-        echo "<iframe src=$image width=\"100%\" height=\"500px\"></iframe>";
+        echo "<p><b> document_title.pdf </b> </p>";
+        echo "<iframe src=$image title= \"document_title.pdf\" width=\"100%\" height=\"500px\"></iframe>";
       }
       ?>
 
