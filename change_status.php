@@ -137,8 +137,6 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                      echo "<script>alert(\"Error has occured!\")</script>";
                    }
 
-                   approval_req_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                   approval_req_partner($deal_id);
 
                   }
                   else{
@@ -158,8 +156,8 @@ if($_SERVER['REQUEST_METHOD'] == "POST")
                       echo "<script>alert(\"Error has occured!\")</script>";
                     }
 
-                    deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
-                    deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
+                  ///  deal_status_changed_galaxkey($partner_email, $deal_id, $partner_organization,$deal_status);
+                  ///  deal_status_changed_partner($partner_email, $deal_id, $partner_organization,$deal_status);
 
 
                   }
