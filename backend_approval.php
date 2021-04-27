@@ -146,6 +146,9 @@ error_reporting(E_ALL);
      return true;
      }
      </script>
+
+     <!-- <link href = "w3.css" rel = "stylesheet"/> -->
+     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
    </head>
    <body>
      <style media="screen">
@@ -476,13 +479,14 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
 
            <div id="records">
              <h2>Your current deal records are:</h2>
-             <table class='keywords'>
+             <table id="mytable" class='keywords'>
+               <!-- 'keywords' 'w3-table-all' -->
                <thead>
                  <tr>
-                   <th>Deal ID</span></th>
-                   <th><span>Partner organisation</span></th>
-                   <th><span>Partner Name</span></th>
-                   <th><span>Partner Email</span></th>
+                   <th>Deal ID</th>
+                   <th>Partner organisation</th>
+                   <th>Partner Name</th>
+                   <th>Partner Email</th>
                    <th><span>Customer Name</span></th>
                    <th><span>Implementation Preference</span></th>
                    <th><span>Number of end users</span></th>
@@ -512,16 +516,15 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                    }
                    else {
                      while($row = mysqli_fetch_assoc($result)) {
-                       echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_organization"]."</td><td>".$row["partner_name"]."</td><td>".$row["partner_email"]."</td><td>".$row["name_customer"]."</td><td>".$row["number_end_users"]."</td><td>".$row["expected_closure"]."</td><td>".$row["req_bud"]."</td><td>".$row["name_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["email_decision_maker"]."</td><td>".$row["phone_decision_maker"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
+                       // echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_organization"]."</td><td>".$row["partner_name"]."</td><td>".$row["partner_email"]."</td></tr>";
+
+                        echo "<tr><td>".$row["deal_id"]."</td><td>".$row["partner_organization"]."</td><td>".$row["partner_name"]."</td><td>".$row["partner_email"]."</td><td>".$row["name_customer"]."</td><td>".$row["number_end_users"]."</td><td>".$row["expected_closure"]."</td><td>".$row["req_bud"]."</td><td>".$row["name_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["designation_decision_maker"]."</td><td>".$row["email_decision_maker"]."</td><td>".$row["phone_decision_maker"]."</td><td>".$row['status']."</td><td>".$row["deal_date"]."</td><td>".$row["expiry_date"]."</td></tr>";
                      }
                    }
                  echo "</tbody> </table>";
 
                  ?>
                </div>
-
-
-
       </div>
 
 
@@ -531,6 +534,11 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
         </div>
 
       </div>
+
+      <script src = "ddtf.js"></script>
+      <script>
+        $('#mytable').ddTableFilter();
+      </script>
 
 
    </body>
