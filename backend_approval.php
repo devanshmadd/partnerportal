@@ -117,6 +117,7 @@ error_reporting(E_ALL);
    <head>
      <meta charset="utf-8">
      <title>Deal Request approval</title>
+
      <script language="javascript" type="text/javascript">
      function dynamicdropdown(listindex)
      {
@@ -478,7 +479,7 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
              <table class='keywords'>
                <thead>
                  <tr>
-                   <th><span>Deal ID</span></th>
+                   <th>Deal ID</span></th>
                    <th><span>Partner organisation</span></th>
                    <th><span>Partner Name</span></th>
                    <th><span>Partner Email</span></th>
@@ -499,6 +500,8 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                </thead>
                <tbody>
 
+
+
                  <?php
 
                    $record_query = "SELECT * FROM deals";
@@ -517,12 +520,18 @@ input, button{padding:4px 12px;border-radius:6px;outline:none;border:1px solid #
                  ?>
                </div>
 
+
+
       </div>
+
+
       <div class="footer">
         <div class="copyright">
           Copyright © Galaxkey Limited 2021
         </div>
 
       </div>
+
+
    </body>
  </html>
